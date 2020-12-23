@@ -9,6 +9,6 @@ public class Base{
     BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
     String strs = reader.readLine();
     //配列として扱う場合
-//    String strs = reader.readLine().Split(" ");
+//    String[] strs = reader.readLine().split(" ");
   }
 }
