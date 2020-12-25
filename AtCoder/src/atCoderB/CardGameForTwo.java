@@ -42,7 +42,6 @@ public class CardGameForTwo {
 	    	sort.get(i).add(now);
 	    }
 
-	    System.out.println("ok");
 	    //各listをソート
 	    for(int i= 0;i<25;i++) {
 	    	Collections.sort(sort.get(i));
