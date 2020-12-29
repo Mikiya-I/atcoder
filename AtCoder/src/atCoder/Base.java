@@ -13,6 +13,7 @@ public class Base{
 
     //配列として扱う場合
 //    String[] strs = reader.readLine().split(" ");
-  }
 
+    System.out.println("");
+  }
 }
