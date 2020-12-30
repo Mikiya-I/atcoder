@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 public class Base{
 
   public static void main( String[] args ) throws IOException{
+
+
+
     BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
 
     String str = reader.readLine();
@@ -15,5 +18,8 @@ public class Base{
 //    String[] strs = reader.readLine().split(" ");
 
     System.out.println("");
+
+
+
   }
 }
