@@ -12,12 +12,11 @@ public class Base{
 
     BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
 
+    char[] S = reader.readLine().toCharArray();
     String str = reader.readLine();
+    String strs[] = reader.readLine().split(" ");
 
-    //配列として扱う場合
-    String[] strs = reader.readLine().split(" ");
-
-    System.out.println("");
+    System.out.println(" ");
 
 
 
