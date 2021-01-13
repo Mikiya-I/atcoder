@@ -3,6 +3,7 @@ package atCoder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Base{
 
@@ -11,6 +12,7 @@ public class Base{
 
 
     BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
+    StringTokenizer token = new StringTokenizer(reader.readLine());
 
     char[] S = reader.readLine().toCharArray();
     String str = reader.readLine();
