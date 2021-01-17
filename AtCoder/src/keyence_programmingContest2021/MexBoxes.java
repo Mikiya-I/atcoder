@@ -50,6 +50,7 @@ public class MexBoxes {
 	    	if(leftBox <=0) {
 	    		break;
 	    	}
+
 	    }
 	    System.out.println(result);
 	}
