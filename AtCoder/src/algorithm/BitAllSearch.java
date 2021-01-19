@@ -1,7 +1,8 @@
 package algorithm;
 
 public class BitAllSearch {
-
+	
+	//
 	int bitAllSearch(int N) {
 
 		//最大値計算用
