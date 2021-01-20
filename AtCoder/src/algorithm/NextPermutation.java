@@ -3,9 +3,10 @@ package algorithm;
 public class NextPermutation {
 	//順列全探索(サンプル用順列の数を戻す)
 	int nextPermutation(int[] arr) {
-		boolean next = false;
+		boolean next = true;
 		int current =1;
 		while(next) {
+			next = false;
 			int i;
 			//隣り合う要素が昇順(a[i] < a[i+1])になっている一番大きい i を見つける
 			for(i = arr.length-2;i<=0;i--) {
@@ -27,7 +28,7 @@ public class NextPermutation {
 					for(int k= i+1,n=arr.length-1;k<n;k++,n++) {
 						int temp = arr[k];
 						arr[k] = arr[n];
-						arr[j] = temp;
+						arr[n] = temp;
 					}
 				}
 				System.out.println(arr);
