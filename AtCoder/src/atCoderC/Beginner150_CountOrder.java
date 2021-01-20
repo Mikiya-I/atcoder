@@ -113,7 +113,7 @@ public class Beginner150_CountOrder {
 
 	//順列全探索(サンプル用順列の数を戻す)
 		int nextPermutation(int[] arr) {
-			boolean next = false;
+			boolean next = true;
 			int current =0;
 			while(next) {
 				int i;
@@ -137,7 +137,7 @@ public class Beginner150_CountOrder {
 						for(int k= i+1,n=arr.length-1;k<n;k++,n++) {
 							int temp = arr[k];
 							arr[k] = arr[n];
-							arr[j] = temp;
+							arr[n] = temp;
 						}
 					}
 					System.out.println(arr);
