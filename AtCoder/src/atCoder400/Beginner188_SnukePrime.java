@@ -1,4 +1,4 @@
-package atCoderD;
+package atCoder400;
 
 import java.io.BufferedReader;
 import java.io.IOException;
