@@ -39,10 +39,10 @@ public class Square869120Contest4_BuildingsAreColorful {
 	    			//建物がその時点での最高値より低い場合(高さを挙げる必要がある場合)
 	    			if(building[j] <= base) {
 	    				sum += ++base - building[j];
-	    			}else {
-	    				base = building[j];
 	    			}
 	    		}
+	    		//最高値はビットの有無に関係なく更新
+	    		base = Math.max(base, building[j]);
 	    	}
 	    	if(sum < ans ) ans = sum;
 	    }
