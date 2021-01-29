@@ -33,32 +33,67 @@ public class Beginner077_SunukeFestival {
 		for (int i = 0; i < N; i++) {
 			C[i] = Integer.parseInt(token.nextToken());
 		}
-
+		reader.close();
 		Arrays.sort(A);
 		Arrays.sort(B);
 		Arrays.sort(C);
 
-		int count = 0;
-		for (int i =0,bIndex =0; i<N;i++) {
-			for (int j=bIndex,cIndex=0;j<N;j++) {
-				//AよりBが小さければスキップ
-				if (B[j] <= A[i]) {
-					bIndex = j+1;
-					continue;
-				}
+		Beginner077_SunukeFestival binary = new Beginner077_SunukeFestival();
+		int total =0;
+		//二分探索木
+		for(int b :B) {
+			//ｂがAの最小値以下かCの最大値以上の場合はスキップ
+			if(b <=A[0] || b>=C[N-1]) continue;
+			int a= binary.BinarySearch(A, b);
 
-				for (int k=cIndex;k<N;k++) {
-					//BよりCが小さければスキップ
-					if (C[k] <= B[j]) {
-						cIndex = k+1;
-						continue;
-					}
+			int c = binary.BinarySearch(C, b);
 
-					count++;
-				}
-			}
+			total += a*(N-c);
 		}
-		System.out.println(count);
+
+		System.out.println(total);
 	}
+
+	//二分探索(この場合はbaseより大きい最小のindex)
+	int BinarySearch(int[] array,int base){
+		//右側　条件を満たす最小のindex
+		int right = array.length;
+		//左側 条件を満たさない最大のindex
+		int left = -1;
+		while(right - left >1) {
+			//中央のindex
+			int mid = left + (right -left)/2;
+			//真ん中が条件を満たす場合
+			if(array[mid] >= base) right = mid;
+			//満たさない場合
+			else left  =mid;
+		}
+
+		return right;
+
+	}
+
+		//↓全探索だと時間切れ
+//		int count = 0;
+//		for (int i =0,bIndex =0; i<N;i++) {
+//			for (int j=bIndex,cIndex=0;j<N;j++) {
+//				//AよりBが小さければスキップ
+//				if (B[j] <= A[i]) {
+//					bIndex = j+1;
+//					continue;
+//				}
+//
+//				for (int k=cIndex;k<N;k++) {
+//					//BよりCが小さければスキップ
+//					if (C[k] <= B[j]) {
+//						cIndex = k+1;
+//						continue;
+//					}
+//
+//					count++;
+//				}
+//			}
+//		}
+//		System.out.println(count);
 
 }
