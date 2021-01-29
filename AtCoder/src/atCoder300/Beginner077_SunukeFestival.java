@@ -39,24 +39,24 @@ public class Beginner077_SunukeFestival {
 		Arrays.sort(C);
 
 		Beginner077_SunukeFestival binary = new Beginner077_SunukeFestival();
-		int total =0;
+		long total =0;
 		//二分探索木
 		for(int b :B) {
 			//ｂがAの最小値以下かCの最大値以上の場合はスキップ
 			if(b <=A[0] || b>=C[N-1]) continue;
-			int a= binary.BinarySearch(A, b);
+			int a= binary.lower_bound(A, b);
 
-			int c = binary.BinarySearch(C, b);
+			int c = binary.upper_bound(C, b);
 
-			total += a*(N-c);
+			total += (a+1)*(N-c);
 		}
 
 		System.out.println(total);
 	}
 
 	//二分探索(この場合はbaseより大きい最小のindex)
-	int BinarySearch(int[] array,int base){
-		//右側　条件を満たす最小のindex
+	public int upper_bound(int[] array,int base){
+		//右側 条件を満たす最小のindex
 		int right = array.length;
 		//左側 条件を満たさない最大のindex
 		int left = -1;
@@ -64,7 +64,7 @@ public class Beginner077_SunukeFestival {
 			//中央のindex
 			int mid = left + (right -left)/2;
 			//真ん中が条件を満たす場合
-			if(array[mid] >= base) right = mid;
+			if(array[mid] > base) right = mid;
 			//満たさない場合
 			else left  =mid;
 		}
@@ -72,6 +72,25 @@ public class Beginner077_SunukeFestival {
 		return right;
 
 	}
+
+	//二分探索(この場合はbaseより小さい最大のindex)
+		public int lower_bound(int[] array,int base){
+			//右側 条件を満たす最小のindex
+			int right = array.length;
+			//左側 条件を満たさない最大のindex
+			int left = -1;
+			while(right - left >1) {
+				//中央のindex
+				int mid = left + (right -left)/2;
+				//真ん中が条件を満たす場合
+				if(array[mid] >= base) right = mid;
+				//満たさない場合
+				else left  =mid;
+			}
+
+			return left;
+
+		}
 
 		//↓全探索だと時間切れ
 //		int count = 0;
