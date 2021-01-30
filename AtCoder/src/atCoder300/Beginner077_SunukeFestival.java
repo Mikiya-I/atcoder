@@ -48,7 +48,7 @@ public class Beginner077_SunukeFestival {
 
 			int c = binary.upper_bound(C, b);
 
-			total += (a+1)*(N-c);
+			total += (long)(a+1)*(long)(N-c);
 		}
 
 		System.out.println(total);
