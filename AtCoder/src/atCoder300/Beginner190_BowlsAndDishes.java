@@ -15,56 +15,47 @@ public class Beginner190_BowlsAndDishes {
 		int N = Integer.parseInt(token.nextToken());
 		int M = Integer.parseInt(token.nextToken());
 
-		//重複あり
-		int[][] map = new int[N+1][N+1];
+		int[] A = new int[M+1];
+		int[] B = new int[M+1];
 
 		for(int i = 1;i<=M;i++) {
 			token = new StringTokenizer(reader.readLine());
-			int A = Integer.parseInt(token.nextToken());
-			int B = Integer.parseInt(token.nextToken());
-
-			map[A][B]++;
-			map[B][A]++;
+			A[i] = Integer.parseInt(token.nextToken());
+			B[i] = Integer.parseInt(token.nextToken());
 		}
 
 		token = new StringTokenizer(reader.readLine());
 		int k = Integer.parseInt(token.nextToken());
 
-		int[][] kList = new int[k][2];
+		int[] C = new int[k+1];
+		int[] D= new int[k+1];
+
 		for(int i=0;i<k;i++) {
 			token = new StringTokenizer(reader.readLine());
-			int c = Integer.parseInt(token.nextToken());
-			int d = Integer.parseInt(token.nextToken());
-			kList[i][0]= c;
-			kList[i][1] = d;
+			C[i] = Integer.parseInt(token.nextToken());
+			D[i] = Integer.parseInt(token.nextToken());
 		}
 
 		int ans =0;
 		//bit全探索(Max 2^16)
 		for(int i=0,loop=1<<k;i<loop;i++) {
-			//0→ボール無し 1→ボールあり 2→チェック済
-			boolean[][] checkList = new boolean[N+1][N+1];
+			boolean[] checkList = new boolean[N+1];
 			int count =0;
 			//k回ボールを入れる
 			for(int j = 0;j<k;j++) {
-				int z =0;
 				//bitが立っていたらdにボールをいれる
 				if((i>>j & 1)==1) {
-					z =kList[j][1];
+					checkList[D[j]]= true;
 				//bitが立っていなければcにボールを入れる
 				}else {
-					z = kList[j][0];
-				}
-				checkList[0][z] =true;
-				for(int l = 1;l<=N;l++) {
-					if(checkList[0][l] == true&& checkList[z][l] == false) {
-						count += map[z][l];
-
-					checkList[z][l] =true;
-					checkList[l][z] =true;
-					}
+					checkList[C[j]] = true;
 				}
 			}
+
+			for(int l = 1;l<=M;l++) {
+				if(checkList[A[l]] && checkList[B[l]]) count++;
+			}
+
 			if(ans < count) ans = count;
 		}
 		System.out.println(ans);
