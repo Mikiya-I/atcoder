@@ -5,31 +5,37 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Base{
+public class Base {
 
-  public static void main( String[] args ) throws IOException{
+	public static void main(String[] args) throws IOException {
 
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer token = new StringTokenizer(reader.readLine());
 
+		char[] S = reader.readLine().toCharArray();
+		String str = reader.readLine();
+		String strs[] = reader.readLine().split(" ");
+		int I = Integer.parseInt(reader.readLine());
 
-    BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
-    StringTokenizer token = new StringTokenizer(reader.readLine());
+		System.out.println(" ");
+	}
 
-    char[] S = reader.readLine().toCharArray();
-    String str = reader.readLine();
-    String strs[] = reader.readLine().split(" ");
-    int I = Integer.parseInt(reader.readLine());
-
-    System.out.println(" ");
-  }
-
-  int intPow(int base,int pow) {
-		int result =1;
-		for(int i=0;i<pow;i++) {
-			result = result*base;
+	int intPow(int base, int pow) {
+		int result = 1;
+		for (int i = 0; i < pow; i++) {
+			result = result * base;
 		}
 		return result;
 	}
+
+	int binarySearch(int ok,int ng) {
+	  while (Math.abs(ok - ng) > 1) {
+		  int mid = (ok + ng); // 2
+		  if (true)//ここを編集
+			  ok = mid;
+		  else
+			  ng = mid;
+	  }
+	  return ok;
+	}
 }
-
-
-
