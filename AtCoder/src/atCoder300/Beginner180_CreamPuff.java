@@ -12,14 +12,13 @@ public class Beginner180_CreamPuff {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		Long N = Long.parseLong(reader.readLine());
 		int n = (int) Math.sqrt(N);
-		long[] list = new long[n/2];
+		List<Long> list = new ArrayList<Long>();
 
-		int j =0;
 		for(int i= 1;i<=n;i++) {
 			if(N%i==0) {
 				System.out.println(i);
 				if(N/i != n)
-					list[j]=n/i;
+					list.add((N/i));
 			}
 		}
 		for(int i = list.size()-1;i>=0;i--) {
@@ -29,3 +28,4 @@ public class Beginner180_CreamPuff {
 	}
 
 }
+
