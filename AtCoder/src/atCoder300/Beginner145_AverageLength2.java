@@ -40,7 +40,7 @@ public class Beginner145_AverageLength2 {
 			count++;
 
 			//並び替え
-			label:for(int i= N-2;0<= i;i--) {
+			for(int i= N-2;0<= i;i--) {
 				//i<i+1となる一番後ろのiを見つける
 				if(pattern[i] < pattern[i+1]) {
 					//pattern[i]より大きいpattern[j]のうち一番後ろを見つける
@@ -56,10 +56,11 @@ public class Beginner145_AverageLength2 {
 								pattern[k] = pattern[right];
 								pattern[right] = tmp2;
 							}
+							break;
 						}
 					}
 					next = true;
-					break label;
+					break;
 				}
 			}
 		}
