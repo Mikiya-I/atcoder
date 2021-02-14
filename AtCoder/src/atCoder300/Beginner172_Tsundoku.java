@@ -16,18 +16,42 @@ public class Beginner172_Tsundoku {
 		final int M = Integer.parseInt(token.nextToken());
 		final int K = Integer.parseInt(token.nextToken());
 
-		int[] sumA = new int[N];
-		int[] sumB = new int[M];
+		long[] sumA = new long[N+1];
+		long[] sumB = new long[M+1];
 
 		token = new StringTokenizer(reader.readLine());
-		int canRead = 0;
+		int ans = 0;
 		//Aの累積和
-		for(int i = 0;i<N;i++) {
-			sumA[i] = Integer.parseInt(token.nextToken());
+		for(int i = 1;i<=N;i++) {
+			sumA[i] = sumA[i-1]+ Long.parseLong(token.nextToken());
 			if(sumA[i] > K)
 				break;
-			canRead ++;
+			ans ++;
 		}
+
+
+		token = new StringTokenizer(reader.readLine());
+		//B
+		for(int i = 1;i<=M;i++) {
+			sumB[i] = sumB[i-1]+ Long.parseLong(token.nextToken());
+			if(sumB[i] > K)
+				break;
+		}
+
+		for(int i = ans ,j = 0; i >= 0; i--) {
+			for(; j <= M;j++) {
+				if(sumA[i]+sumB[j] > K)
+					break;
+
+				if(i + j > ans)
+					ans = i+j;
+			}
+			//jがmになったら増えようがないからカット
+			if( j == M)
+				break;
+		}
+
+		System.out.println(ans);
 	}
 }
 
