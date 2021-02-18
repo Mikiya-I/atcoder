@@ -20,6 +20,29 @@ public class Beginner166_Peaks {
 	   for(int i=0;i<N;i++)
 		   heights[i] = Integer.parseInt(token.nextToken());
 
+	   //判定用の配列
+	   int[] max = new int[N];
+
+	   for(int i=0;i<M;i++) {
+		   String[] str = reader.readLine().split(" ");
+		   int a = Integer.parseInt(str[0])-1;
+		   int b = Integer.parseInt(str[1])-1;
+
+		   //判定の配列に元の高さと繋がっている灯台の高さの最大値を代入
+		   max[a] = Math.max(heights[b], max[a]);
+		   max[b] = Math.max(heights[a], max[b]);
+	   }
+
+	   int ans =0;
+	   for(int i= 0;i<N;i++) {
+		   if(heights[i] > max[i])
+			   ans++;
+	   }
+	   System.out.println(ans);
+
+
+//outOfMemory発生
+/*
 	   //道のパターン
 	   boolean[][] road = new boolean[N][N];
 	   for(int i=0;i< M;i++) {
@@ -46,6 +69,6 @@ public class Beginner166_Peaks {
 		   if(ok)
 			   ans++;
 	   }
-	   System.out.println(ans);
+*/
 	}
 }
