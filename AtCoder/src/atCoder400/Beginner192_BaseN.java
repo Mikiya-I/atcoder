@@ -31,13 +31,10 @@ public class Beginner192_BaseN {
 			if(n< arr[i])
 				n= arr[i];
 		}
-		//n+1進数から
-		n++;
 
-
-
+		//二分探索
 		long left = n;
-		long right = M;
+		long right = M+1;
 		while(right-left >1) {
 			long mid = (right+left)/2;
 			if(Function(arr,M,mid))
@@ -46,24 +43,7 @@ public class Beginner192_BaseN {
 				right = mid;
 		}
 
-		System.out.println(right-n);
-
-//		label:
-//		for(;;n++) {
-//			BigInteger current = new BigInteger("0");
-//			for(int i=0,index = XChar.length-1; i< XChar.length;i++) {
-//				BigInteger nn = new BigInteger(String.valueOf(Integer.toString(n)));
-//				BigInteger add = nn.pow(index-i);
-//				BigInteger keta = new BigInteger(String.valueOf(XChar[i]));
-//				BigInteger plusVal =keta.multiply(add);
-//				current = current.add(plusVal);
-//				//Mを超えたら終わり
-//				if(new BigInteger(M.toString()).compareTo(current)==-1 )
-//					break label;
-//			}
-//			ans ++;
-//		}
-
+		System.out.println(left-n);
 	}
 
 	//n進数の判定
@@ -80,3 +60,6 @@ public class Beginner192_BaseN {
 		return true;
 	}
 }
+
+//10000000000000000000000000000000000000000000000000000000000
+//1000000000000000000
