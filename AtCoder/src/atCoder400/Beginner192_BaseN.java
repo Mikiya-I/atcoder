@@ -14,13 +14,11 @@ public class Beginner192_BaseN {
 		final Long M = Long.parseLong(reader.readLine());
 		reader.close();
 
-		//1桁のケース
-		if(X.length()==1) {
-			if(M <= Integer.parseInt(X) ) {
-				System.out.println(1);
-			}else {
-				System.out.println(0);
-			}
+		if(X.length() == 1) {
+			if(M < Integer.parseInt(X))
+				System.out.print(0);
+			else
+				System.out.print(1);
 			return;
 		}
 
@@ -60,6 +58,3 @@ public class Beginner192_BaseN {
 		return true;
 	}
 }
-
-//10000000000000000000000000000000000000000000000000000000000
-//1000000000000000000
