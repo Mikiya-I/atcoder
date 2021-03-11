@@ -16,8 +16,8 @@ public class Beginner164_MultipleOf2019 {
 
 		int mod=0;
 		for(int i=length-1;0<=i;i--) {
-			mod += n[i]-'0';
-			
+			int current= n[i]-'0';
+
 			mods[mod]++;
 		}
 
@@ -27,6 +27,20 @@ public class Beginner164_MultipleOf2019 {
 			if(i<1)
 				ans+=i*(i-1)/2;
 		}
+//		int[] mods = new int[2019]; // there are 2019 possible mods, we have to accout for each one of them
+//        int number = 0;
+//        long ans = 0;
+//        for (int i=n-1; i>=0; i--){
+//            int curr = s.charAt(i)-'0';
+//            number = (number+curr*pot)%mod; // Taking a mod wouldn't effect our answer, since all we are working with is mods, not the acual val
+//            ans += mods[number];
+//            if (number == 0){
+//                ans++;
+//            }
+//            mods[number]++;
+//            pot = (pot*10)%mod;
+//        }
+
 		System.out.println(ans);
 	}
 }
