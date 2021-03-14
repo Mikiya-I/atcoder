@@ -22,6 +22,8 @@ public class Beginner195_ManyOranges {
 		 int Max = W/min;
 		 int ansMin= Integer.MAX_VALUE;
 		 int ansMax =0;
+		 //みかんの重さは小数もあり得る
+		 //最小*個数<=重さ<=最大*個数が成立すればぴったりにできる(小数で調整できるため)
 		 for(int i= Min;i<=Max;i++) {
 			 if(i*min <= W && i*max>=W) {
 				 ansMin = Math.min(ansMin, i);
