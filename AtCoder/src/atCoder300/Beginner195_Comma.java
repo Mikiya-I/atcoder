@@ -17,6 +17,7 @@ public class Beginner195_Comma {
 		while(N>=Math.pow(1000, point+1))
 			point ++;
 
+		//10^3^xの個数を求める。
 		long ans =0;
 		for(int i=1;i<=point;i++)
 			ans+= N-Math.pow(1000, i)+1;
