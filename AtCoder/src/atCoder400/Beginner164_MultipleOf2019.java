@@ -16,17 +16,18 @@ public class Beginner164_MultipleOf2019 {
 		int mod = 0;
 		int num = 0 ;//??
 		int pot = 1;//??
-		for (int i = length - 1; 0 <= i; i--) {
-			int current = n[i] - '0';
-			num = (num+current*pot)%mod;
-			mods[mod]++;
-		}
-
 		long ans = 0;
-		for (int i : mods) {
-			if (i < 1)
-				ans += i * (i - 1) / 2;
+
+		for (int i = length-1; i>=0; i--) {
+			int current = n[i] - '0';
+			num += current * pot;
+			mod = num%2019;
+			mods[mod]++;
+			pot*=10;
+			pot%= 2019;
 		}
+		for(int i:mods)
+			ans += i*(i-1)/2;
 
 		//        int number = 0;
 		//        long ans = 0;
