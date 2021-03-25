@@ -25,3 +25,25 @@ public class Beginner157_FriendSuggestions {
 		return arr;
 	}
 }
+
+class UnionFindTree {
+    int[] root;
+    int[] rank;
+    int[] size;
+    public UnionFindTree(int n) {
+        this.root = new int[n];
+        this.rank = new int[n];
+        this.size = new int[n];
+        for(int i=0;i<n;i++){
+            root[i] = i;
+            size[i] = 1;
+        }
+    }
+
+    public int find(int x){
+        if(root[x]==x) return x;
+        else{
+            return root[x] = find(root[x]);
+        }
+    }
+}
