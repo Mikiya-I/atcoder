@@ -25,12 +25,17 @@ public class Beginner197_ORXOR {
 
 		//bit全探索
 		for(int i=0;i<	(1<<19);i++) {
+			//xorの値
 			int xored = 0;
+			//orの値
 			int ored = 0;
+			//N個の数値
 			for (int j = 0; j <= N; j++) {
 				if (j < N)
 					ored |= A[j];
+				//最後まで行くかビットが立っているか
 				if (j == N|| (i >> j & 1)==1) {
+					//現時点でのxorを計算し、orを初期化
 					xored ^= ored;
 					ored = 0;
 				}
