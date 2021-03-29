@@ -19,7 +19,7 @@ public class Beginner169_Multiplication3 {
 		String[] strs = reader.readLine().split(" ");
 		reader.close();
 //		final long A = Long.parseLong(strs[0]);
-//		final double B = Double.parseDouble(strs[1])*100;
+//		final double B = Double.parseDouble(strs[1])*100; //←整数型にしないと浮動小数で誤差がでる
 //		double ans = (double)A * B;
 //		ans /= 100;
 //		return (long)ans;
