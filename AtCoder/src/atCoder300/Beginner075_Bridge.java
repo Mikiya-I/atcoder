@@ -19,6 +19,7 @@ public class Beginner075_Bridge {
 		final int N = Integer.parseInt(strs[0]);
 		final int M = Integer.parseInt(strs[1]);
 
+		//M本の辺を保持
 		int[][] edge = new int[M][2];
 		for(int i= 0;i<M;i++) {
 			String str[] = reader.readLine().split(" ");
@@ -28,14 +29,17 @@ public class Beginner075_Bridge {
 			edge[i][1] = b;
 		}
 		int ans = 0;
-
+		//全ての辺を計算
 		for(int i = 0; i < M; i++) {
 			UnionFindTree uf = new UnionFindTree(N);
+			//全ての辺を計算
 			for(int j = 0; j < M; j++) {
+				//i番目の辺だけカウントしない
 				if (j != i) {
 				uf.unite(edge[j][0], edge[j][1]);
 				}
 			}
+			//i番目の辺をカウントしなかったことによって孤立する木ができたらその辺は橋
 			if (!uf.same(edge[i][0], edge[i][1])){
 				ans++;
 			}
