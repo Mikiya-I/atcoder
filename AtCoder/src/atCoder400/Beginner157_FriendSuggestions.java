@@ -24,21 +24,28 @@ public class Beginner157_FriendSuggestions {
 		for (int i = 0; i < M; i++) {
 			String str[] = reader.readLine().split(" ");
 			int a = Integer.parseInt(str[0]);
-			int b = Integer.parseInt(str[0]);
+			int b = Integer.parseInt(str[1]);
 			uf.unite(a, b);
 			relation[a]++;
 			relation[b]++;
 		}
 
+		//ブロック関係
 		for (int i = 0; i < K; i++) {
 			String str[] = reader.readLine().split(" ");
 			int c = Integer.parseInt(str[0]);
-			int d = Integer.parseInt(str[0]);
-			if(!uf.same(c, d)){
+			int d = Integer.parseInt(str[1]);
+			if(uf.same(c, d)){
 				relation[c]++;
 				relation[d]++;
 			}
 		}
+
+		StringBuilder sb = new StringBuilder();
+		for(int i=1;i<=N;i++)
+			sb.append(uf.getSize(i)-relation[i]-1+" ");
+
+		System.out.println(sb.toString());
 	}
 }
 
