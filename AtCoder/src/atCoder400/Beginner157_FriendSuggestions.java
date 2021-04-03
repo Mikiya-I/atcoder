@@ -3,6 +3,7 @@ package atCoder400;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Beginner157_FriendSuggestions {
 
@@ -19,6 +20,7 @@ public class Beginner157_FriendSuggestions {
 		final int K = Integer.parseInt(strs[2]);
 
 		UnionFindTree uf = new UnionFindTree(N);
+		UnionFindTree2 uf2 = new UnionFindTree2(N);
 		int relation[] = new int[N + 1];
 		//要素+要素+1を友人関係に
 		for (int i = 0; i < M; i++) {
@@ -26,6 +28,7 @@ public class Beginner157_FriendSuggestions {
 			int a = Integer.parseInt(str[0]);
 			int b = Integer.parseInt(str[1]);
 			uf.unite(a, b);
+			uf2.unite(a, b);
 			relation[a]++;
 			relation[b]++;
 		}
@@ -42,19 +45,20 @@ public class Beginner157_FriendSuggestions {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		for(int i=1;i<=N;i++)
-			sb.append(uf.getSize(i)-relation[i]-1+" ");
-
+		for(int i=1;i<=N;i++) {
+			sb.append(uf.getSize(i)-relation[i]-1);
+			sb.append(" ");
+		}
 		System.out.println(sb.toString());
 	}
 }
 
-class UnionFindTree {
+class UnionFindTree2 {
 	int[] root;
 	int[] rank;
 	int[] size;
 
-	public UnionFindTree(int n) {
+	public UnionFindTree2(int n) {
 		this.root = new int[n + 1];
 		this.rank = new int[n + 1];
 		this.size = new int[n + 1];
@@ -96,10 +100,59 @@ class UnionFindTree {
 
 	//要素xのサイズ=根のサイズ
 	int getSize(int x) {
-		return size[root[x]];
+		return size[find(x)];
 	}
 
 	boolean same(int x,int y) {
 		return find(x) == find(y);
 	}
+}
+
+class UnionFindTree{
+    int N;
+    int[] parent;
+    int[] rank;
+    int[] size;
+
+    UnionFindTree(int n) {
+        N = n+1;
+        parent = new int[N];
+        Arrays.setAll(parent, i -> i);
+        size = new int[N];
+        Arrays.fill(size, 1);
+        rank = new int[N];
+    }
+
+    boolean isRoot(int x) {
+        return x == parent[x];
+    }
+
+    int root(int x) {
+        return isRoot(x) ? x : (parent[x] = root(parent[x]));
+    }
+
+    boolean same(int x, int y){
+        return root(x) == root(y);
+    }
+
+    int getSize(int x) {
+        return size[root(x)];
+    }
+
+    void unite(int x, int y){
+        x = root(x);
+        y = root(y);
+        if (x != y) {
+            if (rank[y] < rank[x]) {
+                int z = x;
+                x = y;
+                y = z;
+            }
+            parent[x] = y;
+            size[y] += size[x];
+            if (rank[x] == rank[y]) {
+                rank[y]++;
+            }
+        }
+    }
 }
