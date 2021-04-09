@@ -32,28 +32,30 @@ public class Beginner165_ManyRequirements {
 			c[i] = Integer.parseInt(s[2]);
 			d[i] = Integer.parseInt(s[3]);
 		}
+		num[1] = 1;
 
 		dfs(2, 1);
 		System.out.println(max);
 	}
 
-	public static void dfs(int ind, int now) {
-		if (ind > N) {
+	//幅優先全探索
+	public static void dfs(int index,int now) {
+		//最後の値を変え終わった
+		if(index > N) {
 			int sum = 0;
-			//Q個の条件を全探索
-			for (int i = 0; i < Q; i++) {
-				if (num[b[i]] - num[a[i]] == c[i])
-					sum += d[i];
+			//Q個の条件を計算
+			for(int i=0;i<Q ;i++) {
+				if(num[b[i]]-num[a[i]] == c[i])
+					sum+= d[i];
 			}
-			if (sum > max)
-				max = sum;
-			return;
+			if(sum > max) 
+				max =sum;
+				return;
 		}
-
-		for (int j = now; j <= M; j++) {
-			num[ind] = j;
-			dfs(ind + 1, j);
+		//index番目の値を変更
+		for(int j= now ;j <= M;j++) {
+			num[index]=j;
+			dfs(index+1,j);
 		}
 	}
-
 }
