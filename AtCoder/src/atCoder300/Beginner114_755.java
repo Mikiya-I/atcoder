@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Beginner114_755 {
-
+	static int ans;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		System.out.println(slove());
 		
@@ -14,38 +14,43 @@ public class Beginner114_755 {
 	public static int slove() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		final int N = Integer.parseInt(reader.readLine());
-		String[] nums = reader.readLine().split(" ");
-		reader.close();
-		int[] arr = new int[N ];
-		int min = Integer.MAX_VALUE;
-		for (int i = 0; i <N; i++) {
-			arr[i] = Integer.parseInt(nums[i]);
-			min = Math.min(min, arr[i]);
+		if(N<357) {
+			return 0;
 		}
-		
-		int ans = 0;
-		for(int i=0;i<N;i++) {
-			ans=gcd(ans,arr[i]);
-		}
+		ans = 0;
+		//dfs
+		dfs(0,N);
 		return ans;
 	}
 	
-	static int gcd(int x,int y) {
-		if(x==0) {
-			return y;
+	public static void dfs(int x,int N) {
+		if(x>N) {
+			return;
 		}
-		if(y==0) {
-			return x;
+		if(is357(x)) {
+			ans++;
 		}
-		int max = x>=y?x:y;
-		int min = y<=x?y:x;
-		int mod = max%min;
-		while(mod>0) {
-			max=min;
-			min=mod;
-			mod=max%min;
+		dfs(x*10+3,N);
+		dfs(x*10+5,N);
+		dfs(x*10+7,N);
+		return;
+	}
+	
+	public static boolean is357(int x) {
+		boolean find3=false,find5=false,find7 = false;
+		while(x>1) {
+			int mod = x%10;
+			if(mod==3)
+				find3 = true;
+			if(mod==5)
+				find5 = true;
+			if(mod==7)
+				find7 =true;
+			if(find3&& find5&&find7) {
+				return true;
+			}
+			x/=10;
 		}
-		
-		return min;
+		return false;
 	}
 }
