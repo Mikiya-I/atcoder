@@ -23,23 +23,23 @@ public class Beginner114_755 {
 		return ans;
 	}
 	
-	public static void dfs(int x,int N) {
-		if(x>N) {
+	public static void dfs(long x,int n) {
+		if(x>n) {
 			return;
 		}
 		if(is357(x)) {
 			ans++;
 		}
-		dfs(x*10+3,N);
-		dfs(x*10+5,N);
-		dfs(x*10+7,N);
+		dfs(x*10+3,n);
+		dfs(x*10+5,n);
+		dfs(x*10+7,n);
 		return;
 	}
 	
-	public static boolean is357(int x) {
+	public static boolean is357(long x) {
 		boolean find3=false,find5=false,find7 = false;
 		while(x>1) {
-			int mod = x%10;
+			long mod = x%10;
 			if(mod==3)
 				find3 = true;
 			if(mod==5)
