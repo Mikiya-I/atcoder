@@ -15,11 +15,27 @@ public class Beginner162_SumOfGcdOfTuplesEasy {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		final int K = Integer.parseInt(reader.readLine());
 		long ans = 0;
-		for(int i = 1;i <= K; i++) {
-			for(int j= 1; j<= K; j++) {
-				for(int k = 1; k<=K;k++) {
+		//↓解けるけど遅い
+//		for(int i = 1;i <= K; i++) {
+//			for(int j= 1; j<= K; j++) {
+//				for(int k = 1; k<=K;k++) {
+//					int tmp = gcd(j,k);
+//					ans += gcd(tmp,i);
+//				}
+//			}
+//		}
+		for(int i=1;i<= K ;i++) {
+			for(int j= i;j<=K;j++) {
+				for(int k= j;k<=K;k++) {
 					int tmp = gcd(j,k);
-					ans += gcd(tmp,i);
+					tmp = gcd(tmp,i);
+					if(i==j && j==k) {
+						ans += tmp;
+					}else if ( i== j  || j==k) {
+						ans += tmp *3;
+					}else {
+						ans += tmp *6;
+					}
 				}
 			}
 		}
