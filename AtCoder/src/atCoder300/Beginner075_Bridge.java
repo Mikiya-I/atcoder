@@ -8,12 +8,11 @@ public class Beginner075_Bridge {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 
-		Beginner075_Bridge This = new Beginner075_Bridge();
-		int ans =This.slove();
+		long ans = slove();
 		System.out.println(ans);
 	}
 
-	public int slove() throws IOException {
+	public static long  slove() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String[] strs = reader.readLine().split(" ");
 		final int N = Integer.parseInt(strs[0]);
