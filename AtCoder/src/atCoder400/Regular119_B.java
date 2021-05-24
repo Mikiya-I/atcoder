@@ -28,22 +28,16 @@ public class Regular119_B {
 		//↓1の数(合わなければ無理)
 		int sCnt = 0;
 		int tCnt =0;
-		int firstIndex = Integer.MAX_VALUE;
-		int lastIndex = 0;
-		//下界(ある集合の考えうる最小値=答えは100%この数値以上になる)
-		int changeCnt =0;
+		int[] s0 = new int[N];
+		int [] t0 = new int[N];
 		for(int i=0;i<N;i++) {
-			if(s[i] != t[i]) {
-				needChange[i] = true;
-				firstIndex = Math.min(i, firstIndex);
-				lastIndex = Math.max(lastIndex, i);
-				changeCnt ++;
-			}
-			if(s[i]=='1') {
+			if(s[i]=='0') {
+				s0[sCnt] = i;
 				sCnt++;
 			}
-			if((t[i] =='1')) {
-				tCnt ++;
+			if(t[i]=='0') {
+				t0[tCnt] = i;
+				tCnt++;
 			}
 		}
 		//tとsの0,1の数が合わなければ無理
@@ -52,49 +46,31 @@ public class Regular119_B {
 		}
 		
 		long ans=0;
-		//先頭から順にそろえていく
-//		for(int i=firstIndex;i<lastIndex;i++) {
+		for(int i=0;i<sCnt;i++) {
+			if(s0[i] != t0[i]) {
+				ans++;
+			}
+		}
+		//後ろから
+//		for(int i=lastIndex;i>firstIndex;i--) {
 //			if(s[i] !=t[i]) {
-//				if(i==118) {
-//					System.out.println();
-//				}
-//				int j= i+1;
+//				int j= i-1;
 //				if(s[i] == '1') {
 //					while(s[i] == s[j] && s[j] == t[j]) {
-//						j++;
+//						j--;
 //					}
 //					ans++;
 //				}else {
 //					while(s[i] != s[j]) {
-//						j++;
+//						j--;
 //					}
-//					ans += j-i;
+//					ans += i-j;
 //				}
 //				char tmp = s[i];
 //				s[i] = s[j];
 //				s[j] = tmp;
 //			}
 //		}
-		//後ろから
-		for(int i=lastIndex;i>firstIndex;i--) {
-			if(s[i] !=t[i]) {
-				int j= i-1;
-				if(s[i] == '1') {
-					while(s[i] == s[j] && s[j] == t[j]) {
-						j--;
-					}
-					ans++;
-				}else {
-					while(s[i] != s[j]) {
-						j--;
-					}
-					ans += i-j;
-				}
-				char tmp = s[i];
-				s[i] = s[j];
-				s[j] = tmp;
-			}
-		}
 		
 		return ans;
 	}
