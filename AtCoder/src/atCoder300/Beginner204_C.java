@@ -45,13 +45,15 @@ public class Beginner204_C{
  
 	//深さ優先探索
 		static void dfs(int point,boolean[][] edge,boolean[] used) {
+			ans++;
+			used[point] = true;
 			//現在の頂点から繋がっている点を探す
-			for(int i= 1,length = edge.length; i<length;i++) {
+			for(int i= 1; i<edge.length;i++) {
 				//現在の頂点から線が繋がっていて使っていない頂点で再起呼び出し、該当する頂点が無ければ再起元に戻る
-				if(edge[point][i]  && !used[i]) {
-					ans++;
-					used[point] = true;
-					dfs(i,edge,used);
+				if(edge[point][i] &&! used[i]) {
+					if(!used[i]) {
+						dfs(i,edge,used);
+					}
 				}
 			}
 		}
