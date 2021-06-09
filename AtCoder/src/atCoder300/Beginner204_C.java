@@ -3,12 +3,15 @@ package atCoder300;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
  
 public class Beginner204_C{
 	static long ans =0;
 	static boolean[][] root; 
 	static boolean[] used;
+	static List<Integer>[] path =null;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		 
 		slove();
@@ -21,11 +24,16 @@ public class Beginner204_C{
 		final int N = Integer.parseInt(strs[0]);
 		final int M = Integer.parseInt(strs[1]);
 		root = new boolean[N][N];
+		path = new ArrayList[N];
+		for(int i=0;i<N;i++) {
+			path[i] = new ArrayList<>();
+		}
 		for(int i=0;i<M;i++) {
 			strs = reader.readLine().split(" ");
 			int start = Integer.parseInt(strs[0])-1;
 			int goal = Integer.parseInt(strs[1])-1;
 			root[start][goal]= true;
+			path[start].add(goal);
 		}
 		for(int i=0;i<N;i++) {
 			root[i][i]=true;
@@ -41,7 +49,7 @@ public class Beginner204_C{
 //			bfs(i,root[i],used);
 ////			System.out.println();
 //		}
-		boolean[] used = new boolean[N];
+		used = new boolean[N];
 		for ( int i = 0 ; i < N ; i++ ) {
 			Arrays.fill(used, false);
 			ans += dfs(i);
@@ -60,17 +68,18 @@ public class Beginner204_C{
 				}
 			}
 		}
-		
-//		static int dfs(int pos) {
-//			int ret = 1;
-//			used[pos] = true;
-////			for ( int next : root[pos] ) {
-//				if ( !used[next] ) {
-//					ret += dfs(next);
-//				}
-//			}
-//			return ret;
-//		}
+		 
+		static int dfs(int pos) {
+			//自身はあらかじめ足しておく
+			int ret = 1;
+			used[pos] = true;
+			for ( int next : path[pos] ) {
+				if ( !used[next] ) {
+					ret += dfs(next);
+				}
+			}
+			return ret;
+		}
 		
 		//幅優先探索
 		static void bfs(int point,boolean[] edge,boolean[] used) {
@@ -83,7 +92,4 @@ public class Beginner204_C{
 				}
 			}
 		}
-		
-		
-	
 }
