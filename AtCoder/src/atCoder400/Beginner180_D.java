@@ -23,13 +23,16 @@ public class Beginner180_D {
 		long difference = y-x;
 		long ans =0;
 		int aCnt = 0;
-		while(difference > x*Math.pow(a, aCnt+1)) {
-			aCnt ++;
+		long tmpY = y;
+		while(tmpY >= a) {
+			tmpY /= a;
+			aCnt++;
 		}
 		
-		for(int i=aCnt; i>0;i--) {
+		for(int i=aCnt; i>=0;i--) {
 			long tmp = i;
-			tmp +=( difference-x*Math.pow(i, a))/b;
+			long tmp2 =  (long) (y-x*Math.pow(a, i))-1;
+			tmp += tmp2 /b;
 			ans = Math.max(ans, tmp);
 		}
 		ans = Math.max(ans, difference/b);
