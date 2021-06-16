@@ -55,39 +55,42 @@ public class Beginner205_D {
 		return sb.toString();
 	}
  
-	public static String  slove() throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		final String[] strs = reader.readLine().split(" ");
-		final int N =Integer.parseInt(strs[0]);
-		final int Q = Integer.parseInt(strs[1]);
-		String[] strs2 = reader.readLine().split(" ");
-		nums = new long[N];
-		for(int i=0;i<N;i++) {
-			nums[i] = Long.parseLong(strs2[i]);
-		}
-		Arrays.sort(nums);
-		StringBuilder sb = new StringBuilder();
-		//numsのi番目の要素までに何個の数が見つかっているか(累積和)
-		long[][] interval = new long[N + 1][2];
-        interval[0][0] = 0;
-        interval[0][1] = nums[0] - 1;
-        for (int i = 0; i < N; i++) {
-            interval[i + 1][0] = nums[i] - interval[i][1];
-            interval[i + 1][1] = nums[i + 1] - nums[i] - 1 + interval[i][1];
-        }
-        //Kを読み込み&ソート
-        long[] K = new long[Q];
-        //Kの順番を保持
-        long[] kOrder = new long[Q];
-        for(int i=0;i<Q;i++) {
-        	K[i] = Long.parseLong(strs[i]);
-        	kOrder[i] = K[i];
-        }
-        Arrays.sort(K);
-        
-        
-		return sb.toString();
-	}
+//	public static String  slove() throws IOException {
+//		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//		final String[] strs = reader.readLine().split(" ");
+//		final int N =Integer.parseInt(strs[0]);
+//		final int Q = Integer.parseInt(strs[1]);
+//		String[] strs2 = reader.readLine().split(" ");
+//		nums = new long[N];
+//		for(int i=0;i<N;i++) {
+//			nums[i] = Long.parseLong(strs2[i]);
+//		}
+//		Arrays.sort(nums);
+//		StringBuilder sb = new StringBuilder();
+//		//numsのi番目の要素までに何個の数が見つかっているか(累積和)
+//		long[][] interval = new long[N + 1][2];
+//        interval[0][0] = 0;
+//        interval[0][1] = nums[0] - 1;
+//        for (int i = 0; i < N; i++) {
+//            interval[i + 1][0] = nums[i] - interval[i][1];
+//            interval[i + 1][1] = nums[i + 1] - nums[i] - 1 + interval[i][1];
+//        }
+//        //Kを読み込み&ソート
+//        long[] K = new long[Q];
+//        //Kの順番を保持
+//        HashMap<Long,Integer> kOrder = new  HashMap<Long,Integer>();
+//        for(int i=0;i<Q;i++) {
+//        	K[i] = Long.parseLong(strs[i]);
+//        	kOrder.put(K[i], i);
+//        }
+//        long[] origin = K.clone();
+//        Arrays.sort(K);
+//        for(int i=0;i<N;i++) {
+//        	sb.append();
+//        }
+//        
+//		return sb.toString();
+//	}
 	
 //	public static String  slove() throws IOException {
 //		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
