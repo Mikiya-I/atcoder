@@ -28,6 +28,7 @@ public class Beginner205_D {
 		nums[N] =(long)1e18+1;
 		Arrays.sort(nums);
 		//numsのi番目の要素までに何個の数が見つかっているか(累積和)
+		//[numsのi番目][何個見つかっていないか]
 		long[][] interval = new long[N + 1][2];
         interval[0][0] = 0;
         interval[0][1] = nums[0] - 1;
@@ -40,7 +41,7 @@ public class Beginner205_D {
             long K = Long.parseLong(reader.readLine());
             int l = 0;
             int r = N;
-            //二分探索木で
+            //二分探索木
             while (l < r) {
                 int m = l + r >> 1;
                 if (interval[m][1] < K) {
