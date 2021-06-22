@@ -3,16 +3,15 @@ package atCoder400;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
 
 public class Beginner206_D {
 	public static void main(String[] args) throws IOException {
 		
-		long  ans = slove2();
+		long  ans = slove();
 		System.out.println(ans);
 	}
 	
-	public static long slove2() throws IOException {
+	public static long slove() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		final int N =Integer.parseInt(reader.readLine());
 		final String[] strs = reader.readLine().split(" ");
@@ -33,42 +32,6 @@ public class Beginner206_D {
 				ans += uf.getSize(i)-1;
 			}
 		}
-		return ans;
-	}
-	
-	public static long slove() throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		final int N =Integer.parseInt(reader.readLine());
-		if(N==1) {
-			return 0;
-		}
-		final String[] strs = reader.readLine().split(" ");
-		int[] firstHalf = new int[N/2];
-		int[] secondHalf = new int[N/2];
-//		for(int i=0;i<N;i++) {
-//			arr[i] = Integer.parseInt(strs[i]);
-//		}
-		for(int i=0;i<N/2;i++) {
-			firstHalf[i] =Integer.parseInt(strs[i]);
-		}
-		for(int i=0;i<N/2;i++) {
-			secondHalf[i] = Integer.parseInt(strs[N-1-i]);
-		}
-		long ans =0;
-		HashSet<Integer> set = new HashSet<Integer>();
-		HashSet<Integer>used =new HashSet<Integer>();
-		for(int i=0;i<N/2;i++) {
-			int f=firstHalf[i];
-			int s = secondHalf[i];
-			if(f != s &&!(used.contains(f)&&used.contains(s)) ) {
-				set.add(f);
-				set.add(s);
-				used.add(f);
-				used.add(s);
-				ans ++;
-			}
-		}
-//		long ans = set.size()-1;
 		return ans;
 	}
 }
