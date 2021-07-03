@@ -18,21 +18,33 @@ public class Beginner157_D {
 	public static void slove() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringBuilder sb = new StringBuilder();
-		Deque<String> que = new ArrayDeque<String>();
-		que.add(reader.readLine());
+//		StringBuilder sb = new StringBuilder();
+		Deque<Character> que = new ArrayDeque<Character>();
+		char[]arr = reader.readLine().toCharArray();
+		for(char c:arr) {
+			que.add(c);
+		}
 		final int Q = Integer.parseInt(reader.readLine());
 		boolean reverse = false;
 		for(int i=0;i<Q;i++) {
 			String[] str = reader.readLine().split(" ");
-			if(str.length==1) {
+			if(str[0].equals("1")) {
 				reverse = !reverse;
 			}else {
+				char c = str[2].charAt(0);
 				//末尾に追加
-				if((reverse && str[1].equals("1")) || (!reverse && str[1].equals("2"))) {
-					que.add(str[2]);
+				if(str[1].equals("1")) {
+					if(!reverse) {
+						que.addFirst(c);
+					}else{
+						que.add(c);
+					}
 				}else {
-					que.addFirst(str[2]);
+					if(!reverse) {
+						que.add(c);
+					}else {
+						que.addFirst(c);
+					}
 				}
 			}
 		}
