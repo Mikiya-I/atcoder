@@ -19,6 +19,7 @@ public class Beginner208_D {
 		final int N = Integer.parseInt(strs[0]);
 		final int M = Integer.parseInt(strs[1]);
 		int[][] path = new int[N+1][N+1];
+		boolean[][] canGo =  new boolean[N+1][N+1];
 		for(int[] arr:path) {
 			Arrays.fill(arr, (int)1e9);
 		}
@@ -28,6 +29,7 @@ public class Beginner208_D {
 			int b = Integer.parseInt(strs[1]);
 			int c = Integer.parseInt(strs[2]);
 			path[a][b] =c;
+			canGo[a][b] = true;
 		}
 		for(int i=1;i<=N;i++) {
 			path[i][i] = 0;
@@ -40,8 +42,13 @@ public class Beginner208_D {
 			for(int j=1;j<=N;j++) {
 				//ゴール
 				for(int k=1;k<=N;k++) {
-					path[j][k] = Math.min(path[j][k],path[j][i]+path[i][k]);
-					ans += path[j][k];
+					if(canGo[j][i] && canGo[i][k]) {
+						canGo[j][k] = true;
+					}
+					if(canGo[j][k]) {
+						path[j][k] = Math.min(path[j][k],path[j][i]+path[i][k]);
+						ans += path[j][k];
+					}
 				}
 			}
 		}
