@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class Beginner209_D {
-	static int[][] shortestRoot ;
+	static int[][] shortestDistance;
 	static boolean[][] findRoot;
 	static boolean[] used;
 	static ArrayList<ArrayList<Integer>> path;
@@ -24,7 +24,7 @@ public class Beginner209_D {
 		final int Q = Integer.parseInt(strs[1]);
 //		boolean[][] path = new boolean[N+1][N+1];
 		path = new ArrayList<ArrayList<Integer>>();
-		shortestRoot = new int[N+1][N+1];
+		shortestDistance = new int[N+1][N+1];
 		findRoot = new boolean[N+1][N+1];
 		used = new boolean[N+1];
 		for(int i=0;i<N+1;i++) {
@@ -44,11 +44,11 @@ public class Beginner209_D {
 		used[start]= true;
 		for(int i: path.get(start)) {
 			if(!used[i]) {
-				shortestRoot[start][i]++;
+				shortestDistance[start][i]++;
 				findRoot[start][i]=true;
 				que.add(i);
 				if(i==end) {
-					shortestRoot[start][end]=index;
+					shortestDistance[start][end]=index;
 					findRoot[start][end]=true;
 					return;
 				}
