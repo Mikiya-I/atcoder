@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Beginner209_D {
-	static int[][] shortestDistance;
-	static boolean[][] findRoot;
-	static boolean[] used;
+//	static int[][] shortestDistance;
+//	static boolean[][] findRoot;
+//	static boolean[] used;
 	static ArrayList<ArrayList<Integer>> path;
 	public static void main(String[] args) throws IOException {
 //		long  ans = slove();
@@ -28,9 +28,9 @@ public class Beginner209_D {
 		final int Q = Integer.parseInt(strs[1]);
 //		boolean[][] path = new boolean[N+1][N+1];
 		path = new ArrayList<ArrayList<Integer>>();
-		shortestDistance = new int[N+1][N+1];
-		findRoot = new boolean[N+1][N+1];
-		used = new boolean[N+1];
+//		shortestDistance = new int[N+1][N+1];
+//		findRoot = new boolean[N+1][N+1];
+//		used = new boolean[N+1];
 		for(int i=0;i<N+1;i++) {
 			path.add(new ArrayList<Integer>());
 		}
