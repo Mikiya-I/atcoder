@@ -7,50 +7,37 @@ import java.io.InputStreamReader;
 public class Beginner144_D {
 	public static void main(String[] args) throws IOException {
 //		slove();
-		long  ans = slove();
+		double  ans = slove();
 		System.out.println(ans);
 	}
 	
-	public static long slove() throws IOException {
+	public static double slove() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String[] strs = reader.readLine().split(" ");
-		final int N =Integer.parseInt(strs[0]);
-		final int K = Integer.parseInt(strs[1]);
+		double a = Integer.parseInt(strs[0]);
+		double b = Integer.parseInt(strs[1]);
+		double x = Integer.parseInt(strs[2]);
+		double ans =0;
 		
-		strs= reader.readLine().split(" ");
-		final int ROCK = Integer.parseInt(strs[0]);
-		final int SCISERS = Integer.parseInt(strs[1]);
-		final int PAPER = Integer.parseInt(strs[2]);
-			
-		char[] arr = reader.readLine().toCharArray();
-		int[] KthCnt = new int[N];
-		reader.close();
-		for(int i=0;i<K;i++) {
-			KthCnt[i]++;
+		boolean overHalf;
+		//水が半分以上を占めていたら空間が、そうでなければ水があふれる直前に三角形になる
+		if(a*b/2 < x/a) {
+			overHalf=true;
+		}else {
+			overHalf=false;
 		}
-		for(int i=K;i<N;i++) {
-			if(arr[i]==arr[i-K]) {
-				KthCnt[i]=KthCnt[i-K]+1;
-			}else {
-				KthCnt[i]++;
-			}
-		}
-		long ans =0;
-		for(int i=0;i<N;i++) {
-			char c = arr[i];
-			switch (c){
-			case 'r':
-				ans += PAPER*(KthCnt[i]%2);
-				break;
-			case 's':
-				ans += ROCK*(KthCnt[i]%2);
-				break;
-			default:
-				ans += SCISERS*(KthCnt[i]%2);
-				break;
-			}
-		}
+		//水か空間の小さい方の面積を求める
+		double m;
+		if(overHalf)
+			m=a*b/2 - x/a;
+		else 
+			m=x/a;
 		
+		//あふれる直前の三角形の底辺(高さはbであると確定)
+		double btm = m/b;
+		//三平方の定理で斜辺を計算
+		double hypotenuse = Math.sqrt(Math.pow(b, 2)+Math.pow(btm, 2));
+		//斜辺と底辺間の角度が答えになる
 		return ans;
 	}
 }
