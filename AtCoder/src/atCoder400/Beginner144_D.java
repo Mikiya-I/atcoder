@@ -32,13 +32,24 @@ public class Beginner144_D {
 		else 
 			m=x/a;
 		
-		//あふれる直前の三角形の底辺(高さはbであると確定)
-		double btm = m*2/b;
-		//三平方の定理で斜辺を計算
-		double hypotenuse = Math.sqrt(Math.pow(b, 2)+Math.pow(btm, 2));
-		//斜辺と底辺間の角度が答えになる
-		double ans = Math.asin(b/hypotenuse);
-		ans= Math.toDegrees(ans);
+		double ans;
+		//あふれる直前の三角形の底辺(高さはbかaであると確定)
+		if(overHalf) {
+			double btm = m*2/a;
+			//三平方の定理で斜辺を計算
+			double hypotenuse = Math.sqrt(Math.pow(a, 2)+Math.pow(btm, 2));
+			//斜辺と底辺間の角度が答えになる
+			double deg = Math.asin(btm/hypotenuse);
+			ans= Math.toDegrees(deg);
+		}else {
+			double btm = m*2/b;
+			//三平方の定理で斜辺を計算
+			double hypotenuse = Math.sqrt(Math.pow(b, 2)+Math.pow(btm, 2));
+			//斜辺と底辺間の角度が答えになる
+			double deg = Math.asin(b/hypotenuse);
+			ans= Math.toDegrees(deg);
+		}
+		
 		return ans;
 	}
 }
