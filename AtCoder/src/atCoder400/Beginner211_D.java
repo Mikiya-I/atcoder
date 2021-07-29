@@ -21,11 +21,7 @@ public class Beginner211_D {
 		final int N = Integer.parseInt(strs[0]);
 		final int M = Integer.parseInt(strs[1]);
 		List<Integer>[] path = new ArrayList[N+1];
-//		List<HashSet<Integer>> path = new ArrayList<HashSet<Integer>>();
-//		List<List<Integer>> path = new ArrayList<List<Integer>>();
 		for(int i=0;i<N+1;i++) {
-//			path.add(new HashSet<Integer>());
-//			path.add(new ArrayList<Integer>());
 			path[i] = new ArrayList<Integer>();
 		}
 		//道をlistに入れる
@@ -33,14 +29,11 @@ public class Beginner211_D {
 			strs= reader.readLine().split(" ");
 			int a = Integer.parseInt(strs[0]);
 			int b = Integer.parseInt(strs[1]);
-//			path.get(a).add(b);
-//			path.get(a).add(b);
 			path[a].add(b);
 			path[b].add(a);
 		}
 		//↑　どこかでバグってる
 		ArrayDeque<Integer> que = new ArrayDeque<Integer>();
-//		Queue<Integer> que = new LinkedList();
 		que.add(1);
 		//そこまでに行くのに何回移動したか
 		int[] dis = new int[N+1];
