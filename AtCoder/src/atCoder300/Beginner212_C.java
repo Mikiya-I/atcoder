@@ -10,7 +10,7 @@ public class Beginner212_C{
 	public static void main(String[] args) throws NumberFormatException, IOException {
 //		 slove();
 //		long ans = slove();
-		System.out.println(slove());
+		System.out.println(slove3());
 	}
  
 	public static long  slove() throws IOException {
@@ -48,7 +48,6 @@ public class Beginner212_C{
 				int tmp = arrN[i] - arrM[j];
 				if(Math.abs(tmp)< ans ) {
 					ans = Math.abs(tmp);
-					
 				}else if(tmp <-1) {
 					break;
 				}else {
@@ -91,6 +90,54 @@ public class Beginner212_C{
 				y++;
 			else
 				x++;
+		}
+		
+		return ans;
+	}
+	
+	public static long  slove3() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String[] strs = reader.readLine().split(" ");
+		int N = Integer.parseInt(strs[0]);
+		int M = Integer.parseInt(strs[1]);
+		
+		int[] arrN = new int[N];
+		int[] arrM = new int[M];
+		strs  = reader.readLine().split(" ");
+		for(int i=0;i<N;i++) {
+			arrN[i] = Integer.parseInt(strs[i]);
+		}
+		
+		strs = reader.readLine().split(" ");
+		reader.close();
+		for(int i=0;i<M;i++) {
+			arrM[i] = Integer.parseInt(strs[i]);
+		}
+		Arrays.sort(arrN);
+		Arrays.sort(arrM);
+		long ans = Long.MAX_VALUE;
+		for(int i=0;i<N;i++) {
+			int left = -1;
+			int right = M;
+			while(right-left >1) {
+				int mid= (left+right)/2;
+				if(arrM[mid] >arrN[i]) {
+					right = mid;
+				}else if(arrM[mid]<arrN[i]){
+					left = mid;
+				}else {
+					return 0;
+				}
+			}
+			long tmp;
+			if(right == M) {
+				tmp = Math.abs(arrN[i]-arrM[left]);
+			}else if(left == -1) {
+				tmp = Math.abs(arrN[i]-arrM[right]);
+			}else{
+				tmp = Math.min(Math.abs(arrN[i]-arrM[left]),Math.abs(arrN[i] - arrM[right]));
+			}
+			ans = Math.min(ans, tmp);
 		}
 		
 		return ans;
