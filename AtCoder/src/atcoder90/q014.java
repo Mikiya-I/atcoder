@@ -29,6 +29,7 @@ public class q014 {
 		Arrays.sort(students);
 		Arrays.sort(schools);
 		long ans =0;
+		//貪欲法で小さいものから選んでいく
 		for(int i=0;i<N;i++) {
 			ans += (long)Math.abs(students[i] - schools[i]);
 		}
