@@ -21,6 +21,7 @@ public class DPSample {
 				return grid[N][i];
 			}
 		}
+		
 		//見つからなければ0
 		return 0;
 	}
