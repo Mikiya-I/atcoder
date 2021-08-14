@@ -24,4 +24,5 @@ public class DPSample {
 		//見つからなければ0
 		return 0;
 	}
+	
 }
