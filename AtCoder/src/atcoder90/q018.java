@@ -18,30 +18,30 @@ public class q018 {
 		double L = Double.parseDouble(strs[0]);
 		double X = Double.parseDouble(strs[1]);
 		double Y = Double.parseDouble(strs[2]);
+		double l2 = L/2;
 		
 		final int Q = Integer.parseInt(reader.readLine());
 		for(int i=0;i<Q;i++) {
 			int t = Integer.parseInt(reader.readLine());
-			double deg;
-			if(t==0) {
-				deg=0;
-			}else {
-				deg =  360*(t%T)/T;
-			}
-			double tmpZ = L/2 -L/2 * Math.cos(deg);
-			double tmpY = L/2*Math.sin(deg)*-1;
-			double differenceY = Math.abs(tmpY-Y);
+			double deg =  360*(t%T)/T;
+			double z = L/2 -L/2 * Math.cos(deg);
+			double y = L*Math.sin(deg)*-1 / 2;
+			double a = Math.sqrt(Math.pow(X, 2)+Math.pow((y-Y), 2));
+//			double differenceY = Math.abs(tmpY-Y);
 //			double edge = Math.sqrt(Math.pow(differenceY, 2) + Math.pow(tmpZ, 2));
 //			double hypo = Math.sqrt(Math.pow(X, 2)+ Math.pow(edge, 2));
-//			double cDeg = Math.acos(X/hypo);
-//			sb.append(Math.toDegrees(cDeg));
-//			sb.append("\n");
-			double hypo = Math.sqrt(Math.pow(X, 2)+ Math.pow(tmpZ, 2));
-			double cDeg = Math.acos(X/hypo);
-			sb.append(Math.toDegrees(cDeg));
+//			double hypo = Math.hypot(X, differenceY);
+//			double cDeg = Math.atan2(tmpZ,differenceY);
+			double cDeg = Math.atan2(z	,a);
+			double ans  = cDeg*180/Math.PI;
+			sb.append(Math.toDegrees(ans));
 			sb.append("\n");
+			
+			double ky = -Math.sin(Math.PI * 2 * t/ T) * l2;
+			double dxy = Math.hypot(X, Y - ky);
+			double dz = l2 - Math.cos(Math.PI * 2 * t/ T) * l2;
+			double ans2 = Math.atan2(dz, dxy) * 180 / Math.PI;
 		}
-		
 		return sb.toString();
 	}
 }
