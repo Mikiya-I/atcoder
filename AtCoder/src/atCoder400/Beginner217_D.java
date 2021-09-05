@@ -5,13 +5,37 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class Beginner217_D {
 
 	public static void main(String[] args) throws IOException {
 		//		long  ans = slove();
 		//		slove();
-		System.out.println(slove());
+		System.out.println(slove2());
+	}
+	public static String slove2() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		String[] strs = reader.readLine().split(" ");
+		int L = Integer.parseInt(strs[0]);
+		int Q = Integer.parseInt(strs[1]);
+		TreeSet<Integer> set = new TreeSet<Integer>();
+		set.add(0);
+		set.add(L);
+//		boolean isAdded = false;
+		for(int i=0;i<Q;i++) {
+			strs = reader.readLine().split(" ");
+			int x = Integer.parseInt(strs[1]);
+			if(strs[0].equals("2")) {
+				sb.append(set.higher(x) - set.lower(x));
+				sb.append("\n");
+			}else {
+				set.add(x);
+			}
+		}
+		
+		return sb.toString();
 	}
 
 	public static String slove() throws IOException {
