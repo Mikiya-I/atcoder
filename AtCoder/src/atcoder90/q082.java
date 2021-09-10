@@ -29,19 +29,33 @@ public class q082{
 			min=Math.max ((long) Math.pow(10, digits), min);
 			digits ++;
 			max =( (long) Math.pow(10, digits)-1);
-			long tmp = ((min%e97 + max%e97))%e97 * ((max- min +1)%e97)/2;
-			tmp %= e97;
-			tmp *= digits;
-			tmp %= e97;
-			ans += tmp;
+//			long tmp = (((min%e97 + max%e97))%e97 * ((max- min +1)%e97 ))/2;
+//			long tmp;
+			long tmp = (min + max) ;
+			long tmp2 = max-min +1;
+			if ((min + max) % 2 == 0) {
+                ans +=  (min + max) / 2 % e97 * ((max - min + 1) % e97) % e97 * digits % e97;
+            } else {
+                 ans += (min + max) % e97 * ((max - min + 1) / 2 % e97) % e97 * digits% e97;
+            }
+//			tmp %= e97;
+//			tmp *= digits;
+//			tmp %= e97;
+//			ans += tmp;
 			ans %= e97;
 		}
 		max = R;
 		min = Math.max ((long) Math.pow(10, digits), min);
-		long tmp = ((min%e97 + max%e97) %e97) * ((max- min +1)%e97)/2;
-		tmp *= digits+1;
-		tmp %= e97;
-		ans += tmp;
+//		long tmp = ((min%e97 + max%e97) %e97) * ((max- min +1)%e97)/2;
+//		tmp%= e97;
+//		tmp *= digits+1;
+//		tmp %= e97;
+//		ans += tmp;
+		if ((min + max) % 2 == 0) {
+            ans +=  (min + max) / 2 % e97 * ((max - min + 1) % e97) % e97 *( digits+1) % e97;
+        } else {
+             ans += (min + max) % e97 * ((max - min + 1) / 2 % e97) % e97 * (digits+1) % e97;
+        }
 		ans %= e97;
 		
 		return ans;
