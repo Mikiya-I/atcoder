@@ -12,7 +12,7 @@ public class Beginner218_C {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		//		 slove();
 		//		long ans = slove();
-		System.out.println(slove());
+		System.out.println(slove2());
 	}
 
 	public static String slove() throws IOException {
@@ -20,8 +20,6 @@ public class Beginner218_C {
 		final int N = Integer.parseInt(reader.readLine());
 		TreeMap<Integer, TreeSet<Integer>> S = new TreeMap<Integer, TreeSet<Integer>>();
 		TreeMap<Integer, TreeSet<Integer>> T = new TreeMap<Integer, TreeSet<Integer>>();
-//		boolean[][] sGrid = new boolean[N][N];
-//		boolean[][] tGrid = new boolean[N][N];
 
 		int sCnt = 0;
 		//最小値も取っておく
@@ -30,12 +28,6 @@ public class Beginner218_C {
 			char[] strs = reader.readLine().toCharArray();
 			for (int j = 0; j < N; j++) {
 				if (strs[j] == '#') {
-					syMin = Math.min(syMin, i);
-					if (!S.containsKey(i)) {
-						S.put(i, new TreeSet<Integer>(Arrays.asList(j)));
-					} else {
-						S.get(i).add(j);
-					}
 					sCnt++;
 				}
 			}
@@ -103,20 +95,20 @@ public class Beginner218_C {
 
 		for (int i = 0; i < 4; i++) {
 			boolean ok = true;
-			for(int y: T2.keySet()) {
+			for (int y : T2.keySet()) {
 				TreeSet<Integer> s = S2.get(y);
 				TreeSet<Integer> t = T2.get(y);
-				for(int x:t) {
-					if(s== null  || !s.contains(x)) {
+				for (int x : t) {
+					if (s == null || !s.contains(x)) {
 						ok = false;
 						break;
 					}
 				}
-				if(! ok) {
+				if (!ok) {
 					break;
 				}
 			}
-			if(ok)
+			if (ok)
 				return "Yes";
 			S2 = lotate(S2);
 		}
@@ -133,7 +125,7 @@ public class Beginner218_C {
 		for (int i : grid.keySet()) {
 			int y = i;
 			for (int j : grid.get(i)) {
-				int x =  - j;
+				int x = -j;
 				if (!result.containsKey(y)) {
 					result.put(y, new TreeSet<Integer>(Arrays.asList(x)));
 				} else {
@@ -164,5 +156,110 @@ public class Beginner218_C {
 
 		return result;
 	}
+
+	public static String slove2() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		final int N = Integer.parseInt(reader.readLine());
+		boolean[][] sGrid = new boolean[N][N];
+		boolean[][] tGrid = new boolean[N][N];
+
+		int sCnt = 0;
+		//幅も取っておく
+		int syMin = N;
+		int syMax = 0;
+		int sxMin = N;
+		int sxMax = 0;
+
+		for (int i = 0; i < N; i++) {
+			char[] strs = reader.readLine().toCharArray();
+			for (int j = 0; j < N; j++) {
+				if (strs[j] == '#') {
+					sGrid[i][j] = true;
+					sCnt++;
+					syMin = Math.min(syMin, i);
+					syMax = Math.max(syMax, i);
+					sxMin = Math.min(sxMin, j);
+					sxMax = Math.max(sxMax, j);
+				}
+			}
+		}
+		int sWidth = sxMax - syMin + 1, sHeight = syMax - syMin + 1;
+
+		int tCnt = 0;
+		//幅も取っておく
+		int tyMin = N;
+		int tyMax = 0;
+		int txMin = N;
+		int txMax = 0;
+		for (int i = 0; i < N; i++) {
+			char[] strs = reader.readLine().toCharArray();
+			for (int j = 0; j < N; j++) {
+				if (strs[j] == '#') {
+					tGrid[i][j] = true;
+					tCnt++;
+					tyMin = Math.min(tyMin, i);
+					tyMax = Math.max(tyMax, i);
+					txMin = Math.min(txMin, j);
+					txMax = Math.max(txMax, j);
+				}
+			}
+		}
+		//高さと幅
+		int tWidth = txMax - tyMin + 1, tHeight = tyMax - tyMin + 1;
+
+		if (tCnt != sCnt)
+			return "No";
+		else if (tCnt < 2 || tCnt == N * N)
+			return "Yes";
+
+		//ここから
+		//Sの正規化(図形の一番下と左の座標を0,0にする)
+		boolean[][] nS = new boolean[sHeight][sWidth];
+		for (int i = syMin; i <= syMax; i++) {
+			for (int j = sxMin; j <= sxMax; j++) {
+				nS[i - syMin][j - sxMin] = sGrid[i][j];
+			}
+		}
+
+		//Tの正規化
+		boolean[][] nT = new boolean[tHeight][tWidth];
+		for (int i = tyMin; i <= tyMax; i++) {
+			for (int j = txMin; j <= txMax; j++) {
+				nS[i-tyMin][j-txMin] = sGrid[i][j];
+			}
+		}
+
+		for (int i = 0; i < 4; i++) {
+			if (tHeight == nS.length && tWidth == nS[0].length) {
+				boolean ok = true;
+				for (int y = tyMin; y <= tyMax; y++) {
+					for (int x = txMin; x <= txMin; x++) {
+						if (nS[y][x] != nT[y][x]) {
+							ok = false;
+							break;
+						}
+					}
+					if (!ok)
+						break;
+				}
+				if (ok)
+					return "Yes";
+			}
+
+			nS = lotate(nS);
+		}
+		return "No";
+	}
 	
+	private static boolean[][] lotate(boolean[][] grid){
+		int x= grid[0].length, y = grid.length;
+		boolean[][] result = new boolean[x][y];
+		for(int i=0;i<y;i++) {
+			for(int j=0;j<x;j++) {
+				result[x-1-i][y-1-j] = grid[y][x];
+			}
+		}
+		
+		return result;
+	}
 }
