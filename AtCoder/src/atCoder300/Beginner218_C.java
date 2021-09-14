@@ -5,159 +5,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class Beginner218_C {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		//		 slove();
 		//		long ans = slove();
-		System.out.println(slove2());
+		System.out.println(slove());
 	}
 
 	public static String slove() throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		final int N = Integer.parseInt(reader.readLine());
-		TreeMap<Integer, TreeSet<Integer>> S = new TreeMap<Integer, TreeSet<Integer>>();
-		TreeMap<Integer, TreeSet<Integer>> T = new TreeMap<Integer, TreeSet<Integer>>();
-
-		int sCnt = 0;
-		//最小値も取っておく
-		int syMin = Integer.MAX_VALUE;
-		for (int i = 0; i < N; i++) {
-			char[] strs = reader.readLine().toCharArray();
-			for (int j = 0; j < N; j++) {
-				if (strs[j] == '#') {
-					sCnt++;
-				}
-			}
-		}
-		//x軸の最小値
-		int sxMin = 0;
-		for (int i : S.get(syMin)) {
-			sxMin = i;
-			break;
-		}
-
-		int tCnt = 0;
-		//最小値も取っておく
-		int tyMin = Integer.MAX_VALUE;
-		for (int i = 0; i < N; i++) {
-			char[] strs = reader.readLine().toCharArray();
-			for (int j = 0; j < N; j++) {
-				if (strs[j] == '#') {
-					tyMin = Math.min(i, tyMin);
-					if (!T.containsKey(i)) {
-						T.put(i, new TreeSet<Integer>(Arrays.asList(j)));
-					} else {
-						T.get(i).add(j);
-					}
-					tCnt++;
-				}
-			}
-		}
-
-		if (tCnt != sCnt)
-			return "No";
-		else if (tCnt < 2)
-			return "Yes";
-
-		//Tのx方向の最小値
-		int txMin = 0;
-		for (int i : T.get(tyMin)) {
-			txMin = i;
-			break;
-		}
-
-		//Sの正規化(左下を0,0にする)
-		TreeMap<Integer, TreeSet<Integer>> S2 = new TreeMap<Integer, TreeSet<Integer>>();
-		for (int i : S.keySet()) {
-			for (int j : S.get(i)) {
-				if (S2.containsKey(i - syMin)) {
-					S2.get(i - syMin).add(j - sxMin);
-				} else {
-					S2.put(i - syMin, new TreeSet<Integer>(Arrays.asList(j - sxMin)));
-				}
-			}
-		}
-
-		//Tの正規化(左下を0,0にする)
-		TreeMap<Integer, TreeSet<Integer>> T2 = new TreeMap<Integer, TreeSet<Integer>>();
-		for (int i : T.keySet()) {
-			for (int j : T.get(i)) {
-				if (T2.containsKey(i - tyMin)) {
-					T2.get(i - tyMin).add(j - txMin);
-				} else {
-					T2.put(i - tyMin, new TreeSet<Integer>(Arrays.asList(j - txMin)));
-				}
-			}
-		}
-
-		for (int i = 0; i < 4; i++) {
-			boolean ok = true;
-			for (int y : T2.keySet()) {
-				TreeSet<Integer> s = S2.get(y);
-				TreeSet<Integer> t = T2.get(y);
-				for (int x : t) {
-					if (s == null || !s.contains(x)) {
-						ok = false;
-						break;
-					}
-				}
-				if (!ok) {
-					break;
-				}
-			}
-			if (ok)
-				return "Yes";
-			S2 = lotate(S2);
-		}
-
-		return "No";
-	}
-
-	//90度回転&正規化
-	private static TreeMap<Integer, TreeSet<Integer>> lotate(TreeMap<Integer, TreeSet<Integer>> grid) {
-		TreeMap<Integer, TreeSet<Integer>> result = new TreeMap<Integer, TreeSet<Integer>>();
-		TreeMap<Integer, TreeSet<Integer>> result2 = new TreeMap<Integer, TreeSet<Integer>>();
-		int xMin = Integer.MAX_VALUE;
-		int yMin = Integer.MAX_VALUE;
-		for (int i : grid.keySet()) {
-			int y = i;
-			for (int j : grid.get(i)) {
-				int x = -j;
-				if (!result.containsKey(y)) {
-					result.put(y, new TreeSet<Integer>(Arrays.asList(x)));
-				} else {
-					result.get(y).add(x);
-				}
-			}
-		}
-
-		for (int i : result.keySet()) {
-			yMin = i;
-			break;
-		}
-
-		for (int i : result.get(yMin)) {
-			xMin = i;
-			break;
-		}
-
-		for (int i : result.keySet()) {
-			for (int j : result.get(i)) {
-				if (result2.containsKey(i - yMin)) {
-					result2.get(i - yMin).add(j - xMin);
-				} else {
-					result2.put(i - yMin, new TreeSet<Integer>(Arrays.asList(j - xMin)));
-				}
-			}
-		}
-
-		return result;
-	}
-
-	public static String slove2() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		final int N = Integer.parseInt(reader.readLine());
 		boolean[][] sGrid = new boolean[N][N];
@@ -183,7 +39,7 @@ public class Beginner218_C {
 				}
 			}
 		}
-		int sWidth = sxMax - syMin + 1, sHeight = syMax - syMin + 1;
+		int sWidth = sxMax - sxMin + 1, sHeight = syMax - syMin + 1;
 
 		int tCnt = 0;
 		//幅も取っておく
@@ -205,39 +61,28 @@ public class Beginner218_C {
 			}
 		}
 		//高さと幅
-		int tWidth = txMax - tyMin + 1, tHeight = tyMax - tyMin + 1;
+		int tWidth = txMax - txMin + 1, tHeight = tyMax - tyMin + 1;
 
 		if (tCnt != sCnt)
 			return "No";
 		else if (tCnt < 2 || tCnt == N * N)
 			return "Yes";
 
-		//ここから
-		//Sの正規化(図形の一番下と左の座標を0,0にする)
-		boolean[][] nS = new boolean[sHeight][sWidth];
-		for (int i = syMin; i <= syMax; i++) {
-			for (int j = sxMin; j <= sxMax; j++) {
-				nS[i - syMin][j - sxMin] = sGrid[i][j];
-			}
-		}
+		//Sの正規化
+		boolean[][] nS = normalize(sGrid, sHeight, sWidth, syMin, syMax, sxMin, sxMax);
 
 		//Tの正規化
-		boolean[][] nT = new boolean[tHeight][tWidth];
-		for (int i = tyMin; i <= tyMax; i++) {
-			for (int j = txMin; j <= txMax; j++) {
-				nS[i-tyMin][j-txMin] = sGrid[i][j];
-			}
-		}
+		boolean[][] nT = normalize(tGrid, tHeight, tWidth, tyMin, tyMax, txMin, txMax);
+		
+		sGrid = null;
+		tGrid = null;
 
 		for (int i = 0; i < 4; i++) {
 			if (tHeight == nS.length && tWidth == nS[0].length) {
 				boolean ok = true;
-				for (int y = tyMin; y <= tyMax; y++) {
-					for (int x = txMin; x <= txMin; x++) {
-						if (nS[y][x] != nT[y][x]) {
-							ok = false;
-							break;
-						}
+				for (int y = 0; y < tHeight; y++) {
+					if(!Arrays.equals(nS[y], nT[y])) {
+						ok= false;
 					}
 					if (!ok)
 						break;
@@ -245,21 +90,33 @@ public class Beginner218_C {
 				if (ok)
 					return "Yes";
 			}
-
-			nS = lotate(nS);
+			nS = rotate(nS);
 		}
 		return "No";
 	}
 	
-	private static boolean[][] lotate(boolean[][] grid){
-		int x= grid[0].length, y = grid.length;
-		boolean[][] result = new boolean[x][y];
-		for(int i=0;i<y;i++) {
-			for(int j=0;j<x;j++) {
-				result[x-1-i][y-1-j] = grid[y][x];
+	//回転(右に90度回転)
+	private static boolean[][] rotate(boolean[][] grid){
+		int originWidth= grid[0].length, originHeight = grid.length;
+		boolean[][] result = new boolean[originWidth][originHeight];
+		for(int i=0;i<originHeight;i++) {
+			for(int j=0;j<originWidth;j++) {
+//				result[i][x-1-j] = grid[i][j];
+				result[originWidth-1-j][i]= grid[i][j];
 			}
 		}
 		
+		return result;
+	}
+	
+	//正規化(図形の一番下と左の座標を0,0にする)
+	private static boolean[][] normalize(boolean[][] grid,int height,int width, int yMin,int yMax, int xMin, int xMax){
+		boolean[][] result = new boolean[height][width];
+		for (int i = yMin; i <= yMax; i++) {
+			for (int j = xMin; j <= xMax; j++) {
+				result[i-yMin][j-xMin] = grid[i][j];
+			}
+		}
 		return result;
 	}
 }
