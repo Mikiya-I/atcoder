@@ -8,6 +8,7 @@ public class DFSSample {
 	static int[][] path;
 	static ArrayDeque<Integer> que ;
 	static boolean[] used;
+	
 	void dfs() {
 		while(que.size()>0) {
 			int tmp=que.pop();
@@ -20,4 +21,5 @@ public class DFSSample {
 			}
 		}
 	}
+	
 }
