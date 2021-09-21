@@ -46,4 +46,29 @@ public class Beginner219_D {
 		
 		return dp[N][X][Y];
 	}
+	private static long slove2() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		final int n = Integer.parseInt(reader.readLine());
+		String[] strs = reader.readLine().split(" ");
+		final int x = Integer.parseInt(strs[0]);
+		final int y = Integer.parseInt(strs[1]);
+        int[][] dp = new int[x + 1][y + 1];
+        int INF = Integer.MAX_VALUE;
+        for (int[] is : dp) 
+        	Arrays.fill(is, INF);
+ 
+        dp[0][0] = 0;
+        for (int i = 0; i < n; i++) {
+        	strs = reader.readLine().split(" ");
+			int a = Integer.parseInt(strs[0]);
+			int b = Integer.parseInt(strs[1]);
+            for (int j = x; j >= 0; j--) { for (int k = y; k >= 0; k--) {
+                int j2 = Math.min(j + a, x);
+                int k2 = Math.min(k + b, y);
+                dp[j2][k2] = Math.min(dp[j2][k2], 1 + dp[j][k]);
+                }
+            }
+        }
+        return dp[x][y]==INF?-1:dp[x][y];
+	}
 }
