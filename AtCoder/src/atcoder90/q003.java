@@ -15,6 +15,7 @@ public class q003 {
 	static ArrayDeque<Integer> que;
 	static int tmp;
 	static int maxDepth;
+	static int farest;
 	public static void main(String[] args) throws IOException {
 //		slove();
 		System.out.println(slove());
@@ -37,12 +38,11 @@ public class q003 {
 			path[b].add(a);
 		}
 		que = new ArrayDeque<Integer>();
-		for(int i= 0;i<N;i++) {
-			Arrays.fill(used, false);
-			tmp = 0;
-			que.add(i);
-			dfs();
-		}
+		que.add(0);
+		dfs();
+		que.add(farest);
+		Arrays.fill(used, false);
+		dfs();
 		
 		return maxDepth+1;
 	}
@@ -56,7 +56,10 @@ public class q003 {
 				if(!used[point]) {
 					que.add(point);
 					dfs();
-					maxDepth=Math.max(maxDepth, tmp);
+					if(tmp > maxDepth) {
+						maxDepth=tmp;
+						farest = point;
+					}
 				}
 			}
 			tmp--;
