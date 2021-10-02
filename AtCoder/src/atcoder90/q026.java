@@ -51,6 +51,8 @@ public class q026 {
 	private static void dfs() {
 		while(que.size()>0) {
 			int tmp = que.pop();
+			if(pattern[tmp])
+				trueCnt++;
 			for(int i:path[tmp]) {
 				if(!used[i]) {
 					used[i] = true;
