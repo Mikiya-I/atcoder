@@ -40,11 +40,24 @@ public class q026 {
 			path[B].add(A);
 		}
 		
+		pattern = new boolean[N];
+		pattern[0] = true;
 		que = new ArrayDeque<Integer>();
 		que.add(0);
 		trueCnt =0;
 		dfs();
 		
+		boolean major = trueCnt >=N/2;
+		int cnt = 0;
+		for(int i=0;i<N;i++) {
+			if(pattern[i]  == major) {
+				sb.append(i+1);
+				sb.append(" ");
+				cnt ++;
+			}
+			if(cnt >= N/2)
+				break;
+		}
 		return sb.toString();
 	}
 	
