@@ -9,14 +9,14 @@ public class Beginner223_C {
 	static double[] a;
 	static double[] b;
 	static double[] time;
-	static long totalTime;
+	static double totalTime;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		input();
 //		slove2();
 		//		long ans = slove();
 
-		System.out.println(slove());
+		System.out.println(slove2());
 	}
 
 	public static void input() throws NumberFormatException, IOException {
