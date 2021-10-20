@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +15,11 @@ public class q043 {
 	static boolean[] confirmed;
 	//↑: -W;↓:W;→:1;←:-1;
 	static int vector = 0;
+	static int[] distance ;
+	static int nodeCnt;
+	static int startNode,goalNode;
+	static ArrayDeque<HashMap<Integer, Integer>> que;
+	
 	public static void main(String[] args) throws IOException {
 //		slove();
 		System.out.println(slove());
@@ -32,10 +36,11 @@ public class q043 {
 		strs = reader.readLine().split(" ");
 		final int y2 = Integer.parseInt(strs[0]);
 		final int x2 = Integer.parseInt(strs[1]);
+		nodeCnt = H*W;
+		startNode = y1*W+x1;
+		goalNode = y2*W+x2;
 		
-		boolean[][] grid = new boolean[H+1][W+1];
-		//r:→ l:← u:↑ d:↓
-		char[][] vector = new char[H+2][W+2];
+		boolean[][] grid = new boolean[H+2][W+2];
 		path = new HashMap<Integer, Set<Integer>>();
 		for(int i=1;i<=H*W;i++)
 			path.put(i, new HashSet<Integer>());
@@ -68,31 +73,30 @@ public class q043 {
 			}
 		}
 		
+		//01BFS
 		
 		
 		
 		return 0;
 	}
-}
-
-
-class BFS01_43 {
-	static ArrayDeque<Integer> que = new ArrayDeque<Integer>();
-	 void bfs(ArrayList<ArrayList<Integer>> path) {
-		 ArrayDeque<Integer> que = new ArrayDeque<Integer>();
-		    int[] dis = new int[100];
-		    Arrays.fill(dis, -1);
-		    que.push(1);
-		    dis[1] = 0;
+	
+	 void bfs01() {
+		 que = new ArrayDeque<Map<Integer,Integer>>();
+		    distance = new int[nodeCnt];
+		    Arrays.fill(distance, -1);
+		    que.push(new HashMap<startNode, 0>());
+		    distance[startNode] = 0;
+		    confirmed[startNode] = true;
 		    while(!que.isEmpty()){
-		        int t = que.pop();
-//		        que.pop();
-		        for(int x: path.get(t)) { 
-		        	if(dis[x] == -1) {
-			            dis[x] = dis[t] + 1;
+		        int start = que.pop();
+		        for(int x: path.get(start)) { 
+		        	if(distance[x] == -1) {
+			            distance[x] = distance[start] + 1;
 			            que.push(x);
 		        	}
 		        }
 		    }
 	 }
 }
+
+
