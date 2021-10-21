@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,8 +16,8 @@ public class q043 {
 	static int vector = 0;
 	static int[] distance ;
 	static int nodeCnt;
-	static int startNode,goalNode;
-	static ArrayDeque<HashMap<Integer, Integer>> que;
+	static int firstNode,goalNode;
+	static ArrayDeque<Map<Integer, Integer>> que;
 	
 	public static void main(String[] args) throws IOException {
 //		slove();
@@ -37,7 +36,7 @@ public class q043 {
 		final int y2 = Integer.parseInt(strs[0]);
 		final int x2 = Integer.parseInt(strs[1]);
 		nodeCnt = H*W;
-		startNode = y1*W+x1;
+		firstNode = y1*W+x1;
 		goalNode = y2*W+x2;
 		
 		boolean[][] grid = new boolean[H+2][W+2];
@@ -80,23 +79,24 @@ public class q043 {
 		return 0;
 	}
 	
-	 void bfs01() {
-		 que = new ArrayDeque<Map<Integer,Integer>>();
-		    distance = new int[nodeCnt];
-		    Arrays.fill(distance, -1);
-		    que.push(new HashMap<startNode, 0>());
-		    distance[startNode] = 0;
-		    confirmed[startNode] = true;
-		    while(!que.isEmpty()){
-		        int start = que.pop();
-		        for(int x: path.get(start)) { 
-		        	if(distance[x] == -1) {
-			            distance[x] = distance[start] + 1;
-			            que.push(x);
-		        	}
-		        }
-		    }
-	 }
+//	 void bfs01() {
+//		 que = new ArrayDeque<Map<Integer,Integer>>();
+//		    distance = new int[nodeCnt];
+//		    Arrays.fill(distance, -1);
+//		   HashMap<Integer, Integer> 
+//		    que.push(new HashMap<Integer, Integer>());
+//		    distance[firstNode] = 0;
+//		    confirmed[firstNode] = true;
+//		    while(!que.isEmpty()){
+//		        int start = que.pop();
+//		        for(int x: path.get(start)) { 
+//		        	if(distance[x] == -1) {
+//			            distance[x] = distance[start] + 1;
+//			            que.push(x);
+//		        	}
+//		        }
+//		    }
+//	 }
 }
 
 
