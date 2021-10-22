@@ -1,102 +1,93 @@
-package atcoder90;
-
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.Deque;
 
-public class q043 {
-	static Map<Integer,Set<Integer>> path ;
-	static boolean[] confirmed;
-	//↑: -W;↓:W;→:1;←:-1;
-	static int vector = 0;
-	static int[] distance ;
-	static int nodeCnt;
-	static int firstNode,goalNode;
-	static ArrayDeque<Map<Integer, Integer>> que;
-	
-	public static void main(String[] args) throws IOException {
-//		slove();
-		System.out.println(slove());
-	}
-	
-	public static long slove() throws  IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		String[] strs = reader.readLine().split(" ");
-		final int H = Integer.parseInt(strs[0]);
-		final int W = Integer.parseInt(strs[1]);
-		strs = reader.readLine().split(" ");
-		final int y1 = Integer.parseInt(strs[0]);
-		final int x1 = Integer.parseInt(strs[1]);
-		strs = reader.readLine().split(" ");
-		final int y2 = Integer.parseInt(strs[0]);
-		final int x2 = Integer.parseInt(strs[1]);
-		nodeCnt = H*W;
-		firstNode = y1*W+x1;
-		goalNode = y2*W+x2;
-		
-		boolean[][] grid = new boolean[H+2][W+2];
-		path = new HashMap<Integer, Set<Integer>>();
-		for(int i=1;i<=H*W;i++)
-			path.put(i, new HashSet<Integer>());
-		
-		//グリッド情報読み込み
-		for(int i=1;i<=H;i++) {
-			char[] arr = reader.readLine().toCharArray();
-			for(int j=1;j<=W;j++) {
-				if( arr[i-1] == '.') {
-					grid[i][j] = true;
-				}
-			}
+public class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String[] sa = br.readLine().split(" ");
+		int h = Integer.parseInt(sa[0]);
+		int w = Integer.parseInt(sa[1]);
+		sa = br.readLine().split(" ");
+		int rs = Integer.parseInt(sa[0]) - 1;
+		int cs = Integer.parseInt(sa[1]) - 1;
+		sa = br.readLine().split(" ");
+		int rt = Integer.parseInt(sa[0]) - 1;
+		int ct = Integer.parseInt(sa[1]) - 1;
+		char[][] s = new char[h][w];
+		for (int i = 0; i < h; i++) {
+			s[i] = br.readLine().toCharArray();
 		}
-		//読み込んだグリッドからパスを通す
-		for(int i=1;i<=H;i++) {
-			for(int j=1;j<=W;j++) {
-				int current = i*W+j;
-				if(!grid[i][j])
+		br.close();
+ 
+		int w4 = w * 4;
+		int[] d = new int[h * w * 4];
+		Arrays.fill(d, Integer.MAX_VALUE);
+		Deque<Node> que = new ArrayDeque<Node>();
+		for (int i = 0; i < 4; i++) {
+			int v = rs * w4 + cs * 4 + i;
+			d[v] = 0;
+			que.add(new Node(v, 0));
+		}
+ 
+		int[] dx = {1, 0, -1, 0};
+		int[] dy = {0, 1, 0, -1};
+		while (!que.isEmpty()) {
+			Node cur = que.poll();
+			if (cur.d > d[cur.v]) {
+				continue;
+			}
+			int cx = cur.v / w4;
+			int cy = cur.v % w4 / 4;
+			if (cx == rt && cy == ct) {
+				System.out.println(cur.d);
+				return;
+			}
+			int cz = cur.v % 4;
+			for (int i = 0; i < 4; i++) {
+				int nx = cx + dx[i];
+				int ny = cy + dy[i];
+				if (nx < 0 || h <= nx || ny < 0 || w <= ny || s[nx][ny] == '#') {
 					continue;
-				if(grid[i+1][j]) {
-					int under = current+W;
-					path.get(current).add(under);
-					path.get(under).add(current);
 				}
-				if(grid[i][j+1]) {
-					int right = current+1;
-					path.get(current).add(right);
-					path.get(right).add(current);
+				int nz = i;
+				int alt = d[cur.v];
+				if (cz != nz) {
+					alt++;
+				}
+				int nv = nx * w4 + ny * 4 + nz;
+				if (alt < d[nv]) {
+					d[nv] = alt;
+					if (cz == nz) {
+						que.addFirst(new Node(nv, alt));
+					} else {
+						que.addLast(new Node(nv, alt));
+					}
 				}
 			}
 		}
-		
-		//01BFS
-		
-		
-		
-		return 0;
 	}
-	
-//	 void bfs01() {
-//		 que = new ArrayDeque<Map<Integer,Integer>>();
-//		    distance = new int[nodeCnt];
-//		    Arrays.fill(distance, -1);
-//		   HashMap<Integer, Integer> 
-//		    que.push(new HashMap<Integer, Integer>());
-//		    distance[firstNode] = 0;
-//		    confirmed[firstNode] = true;
-//		    while(!que.isEmpty()){
-//		        int start = que.pop();
-//		        for(int x: path.get(start)) { 
-//		        	if(distance[x] == -1) {
-//			            distance[x] = distance[start] + 1;
-//			            que.push(x);
-//		        	}
-//		        }
-//		    }
-//	 }
+ 
+	static class edge {
+		int v, c;
+ 
+		public edge(int v, int c) {
+			this.v = v;
+			this.c = c;
+		}
+	}
+ 
+	static class Node implements Comparable<Node> {
+		int v, d;
+ 
+		public Node(int v, int d) {
+			this.v = v;
+			this.d = d;
+		}
+ 
+		public int compareTo(Node o) {
+			return Long.compare(d, o.d);
+		}
+	}
 }
-
-
