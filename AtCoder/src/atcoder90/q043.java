@@ -1,26 +1,31 @@
+package atcoder90;
+
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
-public class Main {
+public class q043 {
 	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] sa = br.readLine().split(" ");
-		int h = Integer.parseInt(sa[0]);
-		int w = Integer.parseInt(sa[1]);
-		sa = br.readLine().split(" ");
-		int rs = Integer.parseInt(sa[0]) - 1;
-		int cs = Integer.parseInt(sa[1]) - 1;
-		sa = br.readLine().split(" ");
-		int rt = Integer.parseInt(sa[0]) - 1;
-		int ct = Integer.parseInt(sa[1]) - 1;
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		//読み込み部
+		String[] strs = reader.readLine().split(" ");
+		int h = Integer.parseInt(strs[0]);
+		int w = Integer.parseInt(strs[1]);
+		strs = reader.readLine().split(" ");
+		int rs = Integer.parseInt(strs[0]) - 1;
+		int cs = Integer.parseInt(strs[1]) - 1;
+		strs = reader.readLine().split(" ");
+		int rt = Integer.parseInt(strs[0]) - 1;
+		int ct = Integer.parseInt(strs[1]) - 1;
 		char[][] s = new char[h][w];
 		for (int i = 0; i < h; i++) {
-			s[i] = br.readLine().toCharArray();
+			s[i] = reader.readLine().toCharArray();
 		}
-		br.close();
+		reader.close();
  
+		
 		int w4 = w * 4;
 		int[] d = new int[h * w * 4];
 		Arrays.fill(d, Integer.MAX_VALUE);
