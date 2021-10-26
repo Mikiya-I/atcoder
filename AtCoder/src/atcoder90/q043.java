@@ -41,11 +41,11 @@ public class q043 {
 		que = new PriorityQueue<Node>();
 		//スタート地点はdis=0
 		for (int i = 0; i < 3; i++)
-			grid4[0][0][i] = 0;
+			grid4[rs][cs][i] = 0;
 
 		//スタートをキューに入れる(4方向分)
 		for(int i=1;i<5;i++)
-			que.add(new Node(0, 0, i, 0));
+			que.add(new Node(rs, cs, i, 0));
 		//スタート地点から繋がっている所をキューに入れる
 //		checkAround(que.poll());
 		
@@ -53,7 +53,7 @@ public class q043 {
 			Node current = que.poll();
 			
 			//同じ方向を向いていて値を更新しないときはスルー
-			if(grid4[current.y][current.x][current.vector-1] <= current.distance  && grid4[current.y][current.x][current.vector-1] != -1) 
+			if(grid4[current.y][current.x][current.vector-1] != -1	 && grid4[current.y][current.x][current.vector-1] < current.distance ) 
 				continue;
 			checkAround(current);
 			grid4[current.y][current.x][current.vector-1] = current.distance;
@@ -61,7 +61,8 @@ public class q043 {
 
 		int min = Integer.MAX_VALUE;
 		for(int i=0;i<4;i++) {
-			min = Math.min(grid4[rt][ct][i],min);
+			if(grid4[rt][ct][i] != -1)
+				min = Math.min(grid4[rt][ct][i],min);
 		}
 		
 		System.out.println(min!= Integer.MAX_VALUE?min:-1);
@@ -71,19 +72,19 @@ public class q043 {
 	static void checkAround(Node node) {
 		//上
 		if (node.y != 0 && grid[node.y - 1][node.x] == '.') {
-			que.add(new Node(node.x, node.y - 1, 1,node.vector == 1 || node.vector == 0 ? node.distance : node.distance + 1));
+			que.add(new Node(node.y-1, node.x, 1,node.vector == 1 || node.vector == 0 ? node.distance : node.distance + 1));
 		}
 		//右
 		if (node.x != grid[0].length-1 && grid[node.y ][node.x+1] == '.') {
-			que.add(new Node(node.x+1, node.y, 2,node.vector == 2 || node.vector == 0 ? node.distance : node.distance + 1));
+			que.add(new Node(node.y, node.x+1, 2,node.vector == 2 || node.vector == 0 ? node.distance : node.distance + 1));
 		}
 		//下
 		if (node.y != grid.length-1 && grid[node.y + 1][node.x] == '.') {
-			que.add(new Node(node.x, node.y + 1, 3,node.vector == 3 || node.vector == 0 ? node.distance : node.distance + 1));
+			que.add(new Node(node.y+1, node.x , 3,node.vector == 3 || node.vector == 0 ? node.distance : node.distance + 1));
 		}
 		//左
 		if (node.x != 0 && grid[node.y ][node.x-1] == '.') {
-			que.add(new Node(node.x-1, node.y, 2,node.vector == 4 || node.vector == 0 ? node.distance : node.distance + 1));
+			que.add(new Node(node.y, node.x-1, 4,node.vector == 4 || node.vector == 0 ? node.distance : node.distance + 1));
 		}
 	}
 
@@ -103,7 +104,7 @@ public class q043 {
 		//距離(ここでは方向転換した回数)
 				, distance;
 
-		public Node(int x, int y, int v, int d) {
+		public Node(int y, int x, int v, int d) {
 			this.vector = v;
 			this.distance = d;
 			this.x = x;
