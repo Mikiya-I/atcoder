@@ -47,18 +47,6 @@ public class q043 {
 					que.add(new Node(rs, cs, i));
 				}
 
-		//スタート地点から繋がっている所をキューに入れる
-		//		checkAround(que.poll());
-
-		//		while (!que.isEmpty()) {
-		//			Node current = que.poll();
-		//			
-		//			//同じ方向を向いていて値を更新しないときはスルー
-		//			if(grid4[current.y][current.x][current.vector-1] < current.distance ) 
-		//				continue;
-		//			checkAround(current);
-		//			grid4[current.y][current.x][current.vector-1] = current.distance;
-		//		}
 		while (!que.isEmpty()) {
 			Node node = que.pollFirst();
 			for (int i = 0; i < 4; i++) {
@@ -83,41 +71,6 @@ public class q043 {
 		System.out.println(min != Integer.MAX_VALUE ? min : -1);
 	}
 
-	//周囲の経路をキューに入れる
-	//	static void checkAround(Node node) {
-	//		//上
-	//		if (node.y != 0 && grid[node.y - 1][node.x] == '.') {
-	//			if (node.vector == 1 || node.vector == 0) {
-	//				que.add(new Node(node.y - 1, node.x, 1, node.distance));
-	//			} else if (grid4[node.y - 1][node.x][node.vector - 1] < node.distance) {
-	//				que.addLast(new Node(node.y - 1, node.x, 1, node.distance + 1));
-	//			}
-	//		}
-	//		//右
-	//		if (node.x != grid[0].length - 1 && grid[node.y][node.x + 1] == '.') {
-	//			if (node.vector == 2 || node.vector == 0) {
-	//				que.add(new Node(node.y, node.x + 1, 2, node.distance));
-	//			} else if (grid4[node.y][node.x + 1][node.vector - 1] < node.distance) {
-	//				que.add(new Node(node.y, node.x + 1, 2, node.distance + 1));
-	//			}
-	//		}
-	//		//下
-	//		if (node.y != grid.length - 1 && grid[node.y + 1][node.x] == '.') {
-	//			if (node.vector == 3 || node.vector == 0) {
-	//				que.add(new Node(node.y + 1, node.x, 3, node.distance));
-	//			} else if (grid4[node.y + 1][node.x][node.vector - 1] < node.distance) {
-	//				que.add(new Node(node.y + 1, node.x, 3, node.distance + 1));
-	//			}
-	//		}
-	//		//左
-	//		if (node.x != 0 && grid[node.y][node.x - 1] == '.') {
-	//			if (node.vector == 4 || node.vector == 0) {
-	//				que.add(new Node(node.y, node.x - 1, 4, node.distance));
-	//			} else if (grid4[node.y][node.x - 1][node.vector - 1] < node.distance) {
-	//				que.add(new Node(node.y, node.x - 1, 4, node.distance + 1));
-	//			}
-	//		}
-	//	}
 
 	static class edge {
 		int v, c;
