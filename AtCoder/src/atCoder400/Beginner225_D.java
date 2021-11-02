@@ -3,6 +3,8 @@ package atCoder400;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Beginner225_D {
 
@@ -55,30 +57,55 @@ class SimpleUF{
 	}
 	
 	void joint(int first,int second) {
-		parent[second] = parent[first];
-		next[first] = second;
+//		parent[second] = parent[first];
+//		next[first] = second;
 //		root[second] = root[second];
+		int x = first;
+        int y = second;
+        next[x] = y;
+        parent[y] = x;
 	}
 	
 	void divide(int first,int second) {
-		parent[second] = second;
-		next[first] = first;
+//		parent[second] = second;
+//		next[first] = first;
+		int x = first;
+        int y = second;
+        next[x] = x;
+        parent[y] = y;
 	}
 	
 	void showLine(int x) {
-		StringBuilder sb = new StringBuilder();
-		int current = parent[x];
-		while(parent[current] != current) {
-			current = parent[current];
-		}
-		int cnt = 1;
-		sb.append(current +" ");
-		while(next[current] != current) {
-			current = next[current];
-			sb.append(current +" ");
-			cnt++;
-		}
-		System.out.println(cnt + " " + sb.toString());
+//		StringBuilder sb = new StringBuilder();
+//		int current = parent[x];
+//		while(parent[current] != current) {
+//			current = parent[current];
+//		}
+//		int cnt = 1;
+//		sb.append(current +" ");
+//		while(next[current] != current) {
+//			current = next[current];
+//			sb.append(current +" ");
+//			cnt++;
+//		}
+//		System.out.println(cnt + " " + sb.toString());
+		List<Integer> ans = new ArrayList<>();
+        while(parent[x] != x) {
+            x = parent[x];
+        }
+        ans.add(x);
+        while(next[x] != x) {
+            x = next[x];
+            ans.add(x);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(ans.size());
+        for(int a : ans) {
+            sb.append(" ");
+            sb.append(a);
+        }
+        System.out.println(sb);
 	}
 }
 
