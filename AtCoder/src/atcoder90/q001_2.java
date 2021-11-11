@@ -39,7 +39,7 @@ public class q001_2 {
 		long ng = total+1;
 		while(ng - ok > 1) {
 			long mid = (ok +ng)/2;
-			if(checkPossible(arr,mid ,total,k)) {
+			if(checkPossible(arr,mid,k,total)) {
 				ok=mid;
 			}else {
 				ng = mid;
@@ -49,33 +49,27 @@ public class q001_2 {
 		return ok;
 	}
 	
-	private static boolean checkPossible(int[] arr,int length,int k) {
+	private static boolean checkPossible(int[] arr,long length,int k,long total) {
+		//無理なものはスキップ
+		if(total/k < length)
+			return false;
+		//分けた回数
 		int cnt =0;
+		//判定中の区間の長さ
 		int tmp =0;
+		//使った長さの合計
+		long used = 0;
 		for(int i:arr) {
-			if(tmp+i>=length) {
+			//区間が指定した数値以上なら区切る
+			if(tmp+i>=length && total-(tmp+i + used)>=length) {
 				cnt++;
+				used+= tmp+i;
 				tmp=0;
 			}
 			else
 				tmp+=i;
 		}
+		//k回以上区切れたか
 		return cnt>=k;
-	}
-	private static boolean checkPossible(int[] arr,long x,int l,int k) {
-		int sum = 0;
-		int total = 0;
-		int cnt =0;
-		for(int i=0;i<arr.length;i++) {
-			sum+= arr[i];
-			total += arr[i];
-			int min = Math.min(sum, l-total);
-			if(min >= x){
-				sum =0;
-				cnt++;
-			}
-		}
-		
-		return cnt >= k;
 	}
 }
