@@ -27,8 +27,6 @@ public class Beginner227_C {
 		//Nの3乗根(最小値の最大値)
 		long maxA = (long) Math.cbrt(N);
 		for(int i=1;i<=maxA;i++) {
-//			if(N%i != 0)
-//				continue;
 			//Bの最大値(N/Aの√)
 			long tmp = N/i;
 			long maxB = (long) Math.sqrt(tmp);
