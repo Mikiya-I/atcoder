@@ -45,12 +45,9 @@ public class q003_2 {
 		
 		//任意のノードから一番遠いノードを調べる
 		que = new ArrayDeque<Integer>();
-		for(int i:path.keySet()) {
-			que.add(i);
-			break;
-		}
+		que.add(1);
 		//何回道を通ったか
-		tmp = 0;
+		tmp = -1;
 		maxDepth =0;
 		farest = -1;
 		dfs();
@@ -59,14 +56,12 @@ public class q003_2 {
 		maxDepth = 0;
 		dfs();
 		
-		return maxDepth;
+		return maxDepth+1;
 	}
 	
 	private static void dfs() {
 		while(que.size()>0) {
 			int tmpNode = que.poll();
-			if(used[tmpNode])
-				continue;
 			tmp++;
 			used[tmpNode] = true;
 			if(maxDepth < tmp) {
@@ -74,10 +69,31 @@ public class q003_2 {
 				farest = tmpNode;
 			}
 			for(int i:path.get(tmpNode)) {
+				if(used[tmpNode])
+					continue;
 				que.add(i);
 				dfs();
 			}
 			used[tmpNode] = false;
+			tmp--;
+		}
+	}
+	
+	private static void dfs2() {
+		while(que.size() > 0) {
+			tmp++;
+			int x = que.pop();
+			used[x] = true;
+			for(int point : path.get(x)) {
+				if(!used[point]) {
+					que.add(point);
+					dfs();
+					if(tmp > maxDepth) {
+						maxDepth=tmp;
+						farest = point;
+					}
+				}
+			}
 			tmp--;
 		}
 	}
