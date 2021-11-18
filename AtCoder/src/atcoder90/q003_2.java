@@ -69,7 +69,7 @@ public class q003_2 {
 				farest = tmpNode;
 			}
 			for(int i:path.get(tmpNode)) {
-				if(used[tmpNode])
+				if(used[i])
 					continue;
 				que.add(i);
 				dfs();
