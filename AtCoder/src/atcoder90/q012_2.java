@@ -30,6 +30,7 @@ public class q012_2 {
 		StringBuilder sb = new StringBuilder();
 		int size = H*W;
 		boolean[] isRed = new boolean[size+1];
+//		boolean[][] red = new boolean[H][W];
 		UnionFind uf = new UnionFind(size);
 		for(int i=0;i<Q;i++) {
 			String[] strs = reader.readLine().split(" ");
@@ -38,9 +39,16 @@ public class q012_2 {
 				int column = Integer.parseInt(strs[2]);
 				int baseNode = (row -1 )*W + column;
 				isRed[baseNode] = true;
+//				red[row-1][column-1] = true;
 				for(int j=0;j<4;j++) {
+					int tmpRow = row + d1[j];
+					int tmpColumn = column + d2[j];
+					if(tmpRow == 0 || tmpRow == H+1 || tmpColumn == 0 || tmpColumn == W+1) {
+						continue;
+					}
 					int tmpNode = baseNode + d1[j]*W + d2[j];
 					if(1<= tmpNode  && tmpNode <= size &&  isRed[tmpNode] ) {
+//					if(1<= tmpNode  && tmpNode <= size &&  red[tmpRow-1][tmpColumn-1] ) {
 						uf.unite(baseNode, tmpNode);
 					}
 				}
@@ -51,7 +59,8 @@ public class q012_2 {
 				int row2 = Integer.parseInt(strs[3]);
 				int column2 = Integer.parseInt(strs[4]);
 				int baseNode2 = (row2 -1 )*W + column2;
-				if(uf.same(baseNode, baseNode2)) {
+				if(isRed[baseNode] &&  isRed[baseNode2] &&uf.same(baseNode, baseNode2)) {
+//				if(red[row-1][column-1]&& red[row2-1][column2-1] &&uf.same(baseNode, baseNode2)) {
 					sb.append("Yes \n");
 				}else {
 					sb.append("No \n");
