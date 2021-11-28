@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class q014_2 {
 
 	static int N;
-	static int[] A,B;
+	static long[] A,B;
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 //	static List<HashSet<Integer>> path;
 	
@@ -22,16 +22,22 @@ public class q014_2 {
 		String[] strs = reader.readLine().split(" ");
 		String[] strs2 = reader.readLine().split(" ");
 		reader.close();
+		A = new long[N];
+		B = new long[N];
 		for(int i=0;i<N;i++) {
 			A[i] = Integer.parseInt(strs[i]);
-			B[i] = Integer.parseInt(strs[i]);
+			B[i] = Integer.parseInt(strs2[i]);
 		}
 		Arrays.sort(A);
 		Arrays.sort(B);
 	}
 
 	static long slove() throws IOException {
-		return 0;
+		long ans = 0;
+		for(int i=0;i<N;i++) {
+			ans += Math.abs(A[i] - B[i]);
+		}
+		return ans;
     }
 	
 }
