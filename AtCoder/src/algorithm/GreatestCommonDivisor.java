@@ -8,8 +8,8 @@ public class GreatestCommonDivisor {
 		if(y==0) {
 			return x;
 		}
-		long max = x>=y?x:y;
-		long min = y<=x?y:x;
+		long max = Math.max(x, y);
+		long min = Math.min(x, y);
 		long mod = max%min;
 		while(mod>0) {
 			max=min;
