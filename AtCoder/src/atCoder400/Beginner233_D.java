@@ -49,10 +49,10 @@ public class Beginner233_D {
 		
 		for(int i=0;i<N+1;i++) {
 			long tmp = sums[i];
-			if(map.containsKey(K-tmp)) {
+			map.replace(tmp, map.get(tmp)-1);
+			if(map.containsKey(K+tmp)) {
 				ans += map.get(K-tmp);
 			}
-			map.replace(tmp, map.get(tmp)-1);
 		}
 		
 		return ans;
