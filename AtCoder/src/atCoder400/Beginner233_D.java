@@ -42,6 +42,7 @@ public class Beginner233_D {
 			sums[i] = tmp;
 		}
 
+		//右側を固定
 		for (int i = 1; i <= N; i++) {
 			long x = sums[i] - K;
 			if (map.containsKey(x)) {
