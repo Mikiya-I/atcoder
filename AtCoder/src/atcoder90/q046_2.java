@@ -7,11 +7,9 @@ import java.io.InputStreamReader;
 public class q046_2 {
 	
 	static int N;
-	static int Q;
-	static int[] arr;
-	static int[] command;
-	static int[] xArr;
-	static int[] yArr;
+	static long[] A;
+	static long[] B;
+	static long[] C;
 	
 	public static void main(String[] args) throws Exception, IOException {
 		 input();
@@ -21,71 +19,36 @@ public class q046_2 {
 	
 	static void input() throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(reader.readLine());
+		A = new long[46];
+		B = new long[46];
+		C = new long[46];
 		String[] strs = reader.readLine().split(" ");
-		N = Integer.parseInt(strs[0]);
-		Q = Integer.parseInt(strs[1]);
-		strs = reader.readLine().split(" ");
-		arr= new int[N];
 		for(int i=0;i<N;i++) {
-			arr[i] = Integer.parseInt(strs[i]);
+			A[Integer.parseInt(strs[i] )%46]++;
 		}
-		command = new int[Q];
-		xArr = new int[Q];
-		yArr = new int[Q];
-		for(int i=0;i<Q;i++) {
-			strs = reader.readLine().split(" ");
-			command[i] = Integer.parseInt(strs[0]);
-			xArr[i] = Integer.parseInt(strs[1])-1;
-			yArr[i] = Integer.parseInt(strs[2])-1;
+		strs = reader.readLine().split(" ");
+		for(int i=0;i<N;i++) {
+			B[Integer.parseInt(strs[i] )%46]++;
+		}
+		strs = reader.readLine().split(" ");
+		for(int i=0;i<N;i++) {
+			C[Integer.parseInt(strs[i] )%46]++;
 		}
 		reader.close();
 	}
 
-	static String slove() throws IOException {
-		StringBuilder sb = new StringBuilder();
-		int shiftCnt = 0;
-		for(int i=0;i<Q;i++) {
-			switch (command[i]) {
-				case 1:
-					int x = xArr[i] - shiftCnt;
-					if(x<0) {
-						x*= -1;
-						x %= N;
-						x = N-x;
-					}else if (N <= x) {
-						x %= N;
+	static long slove() throws IOException {
+		long ans = 0;
+		for(int i=0;i<46;i++) {
+			for(int j=0;j<46;j++) {
+				for(int k = 0;k<46;k++) {
+					if((i+j+k)%46 ==0) {
+						ans += A[i]*B[j]*C[k];
 					}
-					int y =  yArr[i] - shiftCnt;
-					if(y<0) {
-						y*= -1;
-						y %= N;
-						y = N-y;
-					}else if ( N <= y) {
-						y %= N;
-					}
-					int tmp = arr[x];
-					int tmp2 = arr[y];
-					arr[x] = arr[y];
-					arr[y] = tmp;
-					break;
-				case 2:
-					shiftCnt++;
-					shiftCnt%= N;
-					break;
-				case 3:
-					int idx = xArr[i] -shiftCnt;
-					if(N <= idx) {
-						idx %= N;
-					}else if(idx<0) {
-						idx*= -1;
-						idx %= N;
-						idx = N-idx;
-					}
-					sb.append(arr[idx] + "\n");
-					break;
+				}
 			}
 		}
-		
-		return sb.toString();
+		return ans;
 	}
 }
