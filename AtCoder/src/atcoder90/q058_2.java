@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.HashSet;
 
 public class q058_2 {
 	public static void main(String[] args) throws IOException {
@@ -19,15 +18,15 @@ public class q058_2 {
 		long K = Long.parseLong(strs[1]);
 		reader.close();
 		int cnt = 0;
-		HashSet<Long> set = new  HashSet<Long>();
+		boolean[] used = new boolean[100001];
 		ArrayDeque<Long> que = new ArrayDeque<Long>();
 		//K回行うかループに入ったら終了
 		while(cnt <K) {
 			n = buttonA(n);
-			if(set.contains(n))
+			if(used[(int) n])
 				break;
 			que.add(n);
-			set.add(n);
+			used[(int) n] = true;
 			cnt ++;
 		}
 		//K回行った場合は最後の要素を返す
