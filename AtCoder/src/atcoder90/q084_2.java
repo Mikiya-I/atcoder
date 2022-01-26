@@ -27,6 +27,7 @@ public class q084_2 {
 		reader.close();
 	}
 	
+	
 	public static long slove() throws  IOException {
 		//Lを固定し、条件を満たす一番小さいRを探す
 		int[] oIdxes = new int[oCnt];
@@ -51,15 +52,19 @@ public class q084_2 {
 		for(int i=0;i<N;i++) {
 			//Lがoの場合
 			if(arr[i]) {
-				while(xIdxes[xTmpIdx]< i || xTmpIdx< xIdxes[ N-oCnt]) {
+				while(xTmpIdx< xIdxes.length && xIdxes[xTmpIdx]< i ) {
 					xTmpIdx ++;
-				}if() {
-					
+				}if(xTmpIdx< xIdxes.length) {
+					ans += N-xIdxes[xTmpIdx];
 				}
 			}
 			//Lがxの場合
 			else {
-				
+				while(oTmpIdx< oIdxes.length &&oIdxes[oTmpIdx]< i) {
+					oTmpIdx ++;
+				}if(oTmpIdx< oIdxes.length) {
+					ans += N-oIdxes[oTmpIdx];
+				}
 			}
 		}
 		
