@@ -44,7 +44,9 @@ public class Beginner226_C {
 		//Nの条件の習得をqueに入れる→入れたものの条件の習得をqueに入れるの繰り返し
 		ArrayDeque<Integer>  que = new ArrayDeque<Integer>();
 		boolean[] used = new boolean[N];
+		int[] cnt = new int[N];
 		set.add(N-1);
+		used[N-1] = true;
 		que.add(N-1);
 //		for(int i:conditions[N-1]) {
 //			que.add(i);
@@ -53,13 +55,14 @@ public class Beginner226_C {
 //		}
 		while(que.size()>0) {
 			int tmp = que.poll();
+			cnt[tmp]++;
 			used[tmp] = true;
 			ans += T[tmp];
 			for(int i:conditions[tmp]) {
-				if(used[i]) {
+				if(used[i])
 					continue;
-				}
 				que.add(i);
+				used[i] = true;
 				set.add(i);
 			}
 		}
@@ -69,8 +72,15 @@ public class Beginner226_C {
 			ans2 += T[i];
 		}
 //		return ans;
-//		System.out.println("ans = "+ ans);
-		System.out.println(ans2);
+		System.out.println("ans = "+ ans);
+		System.out.println("ans2= " +ans2);
+		
+		for(int i=0;i<N;i++) {
+			if(cnt[i]==2)
+				System.out.println(i +":2つ");
+			if(cnt[i] != 0 && !set.contains(i))
+				System.out.println(i + ":無");
+		}
 	}
 
 }
