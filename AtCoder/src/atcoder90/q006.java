@@ -3,6 +3,7 @@ package atcoder90;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class q006 {
 	static int N,K;
@@ -36,6 +37,25 @@ public class q006 {
 			}
 			ans[i] = arr[tmpIdx];
 			tmpIdx++;
+		}
+		return new String(ans);
+	}
+	
+	static String slove2() {
+		char[] arr = s.toCharArray();
+		char[] ans = new char[K];
+		int[][] minIndex = new int[26][N+1];
+		Arrays.fill(minIndex, -1);
+		//後ろから埋めていく
+		for(int i=N-1;0<=i;i--) {
+			int tmpChar = (int)arr[i] - 97;
+			for(int j=0;j<26;j++) {
+				if(j==tmpChar) {
+					minIndex[j][i] = j;
+				}else {
+					minIndex[j][i] = minIndex[j][i+1];
+				}
+			}
 		}
 		return new String(ans);
 	}
