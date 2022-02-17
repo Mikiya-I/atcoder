@@ -11,7 +11,7 @@ public class q006 {
 	public static void main(String[] args) throws IOException {
 //		slove();
 		input();
-		System.out.println(slove());
+		System.out.println(slove2());
 	}
 	
 	static void input() throws IOException {
@@ -45,18 +45,31 @@ public class q006 {
 		char[] arr = s.toCharArray();
 		char[] ans = new char[K];
 		int[][] minIndex = new int[26][N+1];
-		Arrays.fill(minIndex, -1);
+		for(int[] array:minIndex) {
+			Arrays.fill(array, -1);
+		}
 		//後ろから埋めていく
 		for(int i=N-1;0<=i;i--) {
 			int tmpChar = (int)arr[i] - 97;
 			for(int j=0;j<26;j++) {
 				if(j==tmpChar) {
-					minIndex[j][i] = j;
+					minIndex[j][i] = i;
 				}else {
 					minIndex[j][i] = minIndex[j][i+1];
 				}
 			}
 		}
+		int tmpIdx = 0;
+		for(int i=0;i<K;i++) {
+			for(int j=0;j<26;j++) {
+				if(minIndex[j][tmpIdx] != -1 && minIndex[j][tmpIdx] < N-(K-i)+1) {
+					ans[i] = (char)(97+j);
+					tmpIdx = minIndex[j][tmpIdx]+1;
+					break;
+				}
+			}
+		}
+		
 		return new String(ans);
 	}
 }
