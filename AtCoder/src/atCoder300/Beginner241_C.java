@@ -72,8 +72,8 @@ public class Beginner241_C {
 			dpY[0][j] = needCnt;
 		}
 		
-		//↗方向
-		for(int j=6;j<N;j++) {
+		//↙方向
+		for(int j=5;j<N;j++) {
 			int needCnt = 0;
 			for(int i=0;i<6;i++) {
 				if(!grid[i][j-i]) {
@@ -86,7 +86,7 @@ public class Beginner241_C {
 		}
 		
 		// \方向
-		for(int j=0;j<N-6;j++) {
+		for(int j=0;j<N-5;j++) {
 			int needCnt = 0;
 			for(int i=0;i<6;i++) {
 				if(!grid[i][j+i]) {
