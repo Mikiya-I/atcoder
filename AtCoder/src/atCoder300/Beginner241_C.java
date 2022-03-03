@@ -41,9 +41,9 @@ public class Beginner241_C {
 		int[][] dpX = g.clone();
 		//縦
 		int[][] dpY = g.clone();
-		//↗方向
+		//↙方向
 		int[][] dpXY = g.clone();
-		//↖方向
+		//↘方向
 		int[][] dpYX = g.clone();
 		
 		//横方向
@@ -115,7 +115,7 @@ public class Beginner241_C {
 		}
 		
 		//縦のdp
-		for(int i=1;i<N-6;i++) {
+		for(int i=1;i<N-5;i++) {
 			for(int j=0;j<N;j++) {
 				int tmp = dpX[i-1][j];
 				if(!grid[i-1][j])
@@ -131,7 +131,7 @@ public class Beginner241_C {
 		}
 		
 		//↙方向
-		for(int i=1;i<N-6;i++) {
+		for(int i=1;i<N-5;i++) {
 			for(int j=5;j<N;j++) {
 				//新しく計算
 				if(j==N-1) {
@@ -160,8 +160,8 @@ public class Beginner241_C {
 		}
 		
 		//↘方向
-		for(int i=1;i<N-6;i++) {
-			for(int j=0;j<N-6;j++) {
+		for(int i=1;i<N-5;i++) {
+			for(int j=0;j<N-5;j++) {
 				//新しく計算
 				if(j==0) {
 					int needCnt = 0;
